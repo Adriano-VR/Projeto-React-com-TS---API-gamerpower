@@ -112,7 +112,7 @@ export const Body = () => {
       {filteredUsers.slice((page - 1) * 15, page * 15).map((game) => (
         <div
           onClick={() => teste(game)}
-          className=" h-full w-56 bg-zinc-700  rounded-md text-center shadow-xl cursor-pointer hover:scale-105 transition duration-300  overflow-hidden whitespace-nowrap "
+          className=" h-full w-56 bg-zinc-700  rounded-md text-center shadow-md cursor-pointer hover:scale-105 transition duration-300  overflow-hidden whitespace-nowrap "
           key={game.id}
         >
           <img className="w-full" src={game.thumbnail} alt="" />
