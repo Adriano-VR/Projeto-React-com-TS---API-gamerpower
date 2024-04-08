@@ -18,19 +18,18 @@ export const Body = () => {
 
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [sort, setSort] = useState<string>("");
 
 
-  const fetchData = async (sortBy? : string , plat?:string) => {
+
+
+  const fetchData = async (url:string) => {
     
-
     const options = {
       method: "GET",
-      url: "https://gamerpower.p.rapidapi.com/api/giveaways",
-      params: {
-        "sort-by": sortBy ,
-        "platform": plat
-      },
-
+      url: url,
+    
       headers: {
         "X-RapidAPI-Key": "7f5ed69f57msh56242f71d3966fbp11c1d2jsnd0c316423ce1",
         "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
@@ -44,6 +43,8 @@ export const Body = () => {
       console.error(error);
     }
   };
+
+
 
   const totalPages = Math.ceil(gamesDTO.length / 15);
 
@@ -61,9 +62,7 @@ export const Body = () => {
     setPage(page - 1);
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+ 
 
   function handleSearchInput(event: ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
@@ -74,43 +73,58 @@ export const Body = () => {
     game.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  function sortear () {
-    const drop:HTMLSelectElement = document.querySelector("#HeadlineAct")!;
-    if(drop.value === 'popularidade'){
-      fetchData('popularity')
-    }else if (drop.value === 'default'){
-      fetchData("")
-    }
-    else if (drop.value === 'valor'){
-      fetchData("value")
-    }
+
+
+function Platform(pla: string) {
+  let platformValue = "";
     
+  if (pla === 'PC') {
+      platformValue = "pc";
+  } else if (pla === 'PS4') {
+      platformValue = "ps4";
+  } else if (pla === 'STEAM') {
+      platformValue = "steam";
+  } else if (pla === 'PS5') {
+      platformValue = "ps5";
+  } else if (pla === 'xbox') {
+      platformValue = "xbox-series-xs";
+  } else if (pla === 'android') {
+      platformValue = "android";
+  }
+  setSelectedCategory(platformValue)
+}
+
+function Filter() {
+  let sort = ''
+  const drop:HTMLSelectElement = document.querySelector("#HeadlineAct")!;
+  if(drop.value === 'popularidade'){
+    sort = 'popularity'
+  }else if (drop.value === 'valor'){
+    sort = "value"
   }
 
-  function platform (pla:string) {
-  let platform = ''
+  setSort(sort)
+}
 
-    if(pla === 'PC'){
-      platform = "pc"
-    }else if(pla === 'PS4'){
-      platform="ps4"
-    }
-    else if(pla === 'STEAM'){
-      platform="steam"
-    }else if(pla === 'PS5'){
-      platform="ps5"
-    }else if(pla === 'xbox'){
-      platform="xbox-series-xs"
-    }
-    else if(pla === 'android'){
-      platform="android"
-    }
-    fetchData('',platform)
-    setPage(1)
+useEffect(() => {
+  montar();
+}, [sort, selectedCategory]);
+
 
   
-
+function montar() {
+  let url = "https://gamerpower.p.rapidapi.com/api/giveaways";
+  
+  if (sort.length > 0 && selectedCategory.length > 0) {
+      url = `https://gamerpower.p.rapidapi.com/api/giveaways?platform=${selectedCategory}&sort-by=${sort}`;
+  } else if (sort.length > 0 && selectedCategory.length === 0) {
+      url = `https://gamerpower.p.rapidapi.com/api/giveaways?sort-by=${sort}`;
+  } else if (sort.length === 0 && selectedCategory.length > 0) {
+      url = `https://gamerpower.p.rapidapi.com/api/giveaways?platform=${selectedCategory}`;
   }
+
+  fetchData(url);
+}
 
   
 
@@ -122,7 +136,7 @@ export const Body = () => {
         
         <div>
           <select
-            onChange={sortear}
+           onChange={Filter}
             name="HeadlineAct"
             id="HeadlineAct"
             className="bg-transparent h-9 mt-1.5 w-full rounded-lg border-zinc-500 text-zinc-500 sm:text-sm"
@@ -134,12 +148,12 @@ export const Body = () => {
         </div>
   
         <div className=" flex self-center text-lg font-bold gap-4 ">
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => platform("PC")}>PC</h1>
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => platform("PS4")}>PS4</h1>
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => platform("STEAM")}>Steam</h1>
-         <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => platform("PS5")}>PS5</h1>
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => platform("xbox")}>Xbox-Series-XS</h1>
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => platform("android")}>Android</h1>
+          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("PC")}>PC</h1>
+          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("PS4")}>PS4</h1>
+          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("STEAM")}>Steam</h1>
+         <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("PS5")}>PS5</h1>
+          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("xbox")}>Xbox-Series-XS</h1>
+          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("android")}>Android</h1>
         </div>
        
         <div className="relative">
