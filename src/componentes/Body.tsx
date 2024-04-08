@@ -1,6 +1,11 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
-import { CircleArrowRight, CircleArrowLeft, Clock,LoaderCircle  } from "lucide-react";
+import {
+  CircleArrowRight,
+  CircleArrowLeft,
+  Clock,
+  LoaderCircle,
+} from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/pt-br";
@@ -19,17 +24,13 @@ export const Body = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [sort, setSort] = useState<string>("");
+  const [selectedSort, setSelectedSort] = useState<string>("");
 
-
-
-
-  const fetchData = async (url:string) => {
-    
+  const fetchData = async (url: string) => {
     const options = {
       method: "GET",
       url: url,
-    
+
       headers: {
         "X-RapidAPI-Key": "7f5ed69f57msh56242f71d3966fbp11c1d2jsnd0c316423ce1",
         "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
@@ -44,189 +45,217 @@ export const Body = () => {
     }
   };
 
-
-
   const totalPages = Math.ceil(gamesDTO.length / 15);
 
-  
   function teste(obj: GamesProps) {
     navigate("/detalhes", { state: { key: obj } });
   }
 
   function next() {
     setPage(page + 1);
-
   }
 
   function previous() {
     setPage(page - 1);
   }
 
- 
-
   function handleSearchInput(event: ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
     setPage(1);
   }
 
-  const filteredUsers = gamesDTO.filter((game) =>
+  const filteredUsers = [...gamesDTO].filter((game) =>
     game.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  function whatsPlatform(pla: string) {
+    let categoryValue = "";
 
-
-function Platform(pla: string) {
-  let platformValue = "";
-    
-  if (pla === 'PC') {
-      platformValue = "pc";
-  } else if (pla === 'PS4') {
-      platformValue = "ps4";
-  } else if (pla === 'STEAM') {
-      platformValue = "steam";
-  } else if (pla === 'PS5') {
-      platformValue = "ps5";
-  } else if (pla === 'xbox') {
-      platformValue = "xbox-series-xs";
-  } else if (pla === 'android') {
-      platformValue = "android";
-  }
-  setSelectedCategory(platformValue)
-}
-
-function Filter() {
-  let sort = ''
-  const drop:HTMLSelectElement = document.querySelector("#HeadlineAct")!;
-  if(drop.value === 'popularidade'){
-    sort = 'popularity'
-  }else if (drop.value === 'valor'){
-    sort = "value"
+    if (pla === "PC") {
+      categoryValue = "pc";
+    } else if (pla === "PS4") {
+      categoryValue = "ps4";
+    } else if (pla === "STEAM") {
+      categoryValue = "steam";
+    } else if (pla === "PS5") {
+      categoryValue = "ps5";
+    } else if (pla === "xbox") {
+      categoryValue = "xbox-series-xs";
+    } else if (pla === "android") {
+      categoryValue = "android";
+    }
+    setSelectedCategory(categoryValue);
   }
 
-  setSort(sort)
-}
+  function whatsFilter() {
+    let sort = "";
+    const drop: HTMLSelectElement = document.querySelector("#HeadlineAct")!;
+    if (drop.value === "popularidade") {
+      sort = "popularity";
+    } else if (drop.value === "valor") {
+      sort = "value";
+    } else if (drop.value === "default") {
+      setPage(1);
+    }
 
-useEffect(() => {
-  montar();
-}, [sort, selectedCategory]);
+    setSelectedSort(sort);
+  }
 
+  useEffect(() => {
+    buildURL();
+  }, [selectedSort, selectedCategory]);
 
-  
-function montar() {
-  let url = "https://gamerpower.p.rapidapi.com/api/giveaways";
-  
-  if (sort.length > 0 && selectedCategory.length > 0) {
-      url = `https://gamerpower.p.rapidapi.com/api/giveaways?platform=${selectedCategory}&sort-by=${sort}`;
-  } else if (sort.length > 0 && selectedCategory.length === 0) {
-      url = `https://gamerpower.p.rapidapi.com/api/giveaways?sort-by=${sort}`;
-  } else if (sort.length === 0 && selectedCategory.length > 0) {
+  function buildURL() {
+    let url = "https://gamerpower.p.rapidapi.com/api/giveaways";
+
+    if (selectedSort.length > 0 && selectedCategory.length > 0) {
+      url = `https://gamerpower.p.rapidapi.com/api/giveaways?platform=${selectedCategory}&sort-by=${selectedSort}`;
+    } else if (selectedSort.length > 0 && selectedCategory.length === 0) {
+      url = `https://gamerpower.p.rapidapi.com/api/giveaways?sort-by=${selectedSort}`;
+    } else if (selectedSort.length === 0 && selectedCategory.length > 0) {
       url = `https://gamerpower.p.rapidapi.com/api/giveaways?platform=${selectedCategory}`;
+    }
+
+    fetchData(url);
   }
-
-  fetchData(url);
-}
-
-  
 
   return (
-     
-      <div className="flex flex-wrap gap-7 justify-center " >
+    <div className="flex flex-wrap gap-7 justify-center ">
       <header className="bg-zinc-800 w-full pb-5 flex justify-center border-b border-white/30 flex-col ">
-          <div className="flex justify-between items-center">
-        
-        <div>
-          <select
-           onChange={Filter}
-            name="HeadlineAct"
-            id="HeadlineAct"
-            className="bg-transparent h-9 mt-1.5 w-full rounded-lg border-zinc-500 text-zinc-500 sm:text-sm"
-          >
-            <option value="default">Please select</option>
-            <option value="popularidade">Popular</option>
-            <option value="valor">Valor</option>
-          </select>
-        </div>
-  
-        <div className=" flex self-center text-lg font-bold gap-4 ">
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("PC")}>PC</h1>
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("PS4")}>PS4</h1>
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("STEAM")}>Steam</h1>
-         <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("PS5")}>PS5</h1>
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("xbox")}>Xbox-Series-XS</h1>
-          <h1 className="tex-lg font-semibold cursor-pointer" onClick={() => Platform("android")}>Android</h1>
-        </div>
-       
-        <div className="relative">
-          <label htmlFor="Search" className="sr-only">
-            Search
-          </label>
-          <input
-            onChange={handleSearchInput}
-            type="text"
-            id="Search"
-            placeholder="Search for..."
-            className="h-9 rounded-md py-2.5 pe-10 bg-transparent text-zinc-100 shadow-sm sm:text-sm outline-none"
-          />
-          <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
-            <button type="button" className="text-gray-600 hover:text-gray-700">
-              <span className="sr-only">Search</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="size-4"
+        <div className="flex justify-between items-center">
+          <div>
+            <select
+              onChange={whatsFilter}
+              name="HeadlineAct"
+              id="HeadlineAct"
+              className="bg-transparent h-9 mt-1.5 w-full rounded-lg border-zinc-500 text-zinc-500 sm:text-sm"
+            >
+              <option value="default">Please select</option>
+              <option value="popularidade">Popular</option>
+              <option value="valor">Valor</option>
+            </select>
+          </div>
+
+          <div className=" flex self-center text-lg font-bold gap-4 ">
+            <h1
+              className="tex-lg font-semibold cursor-pointer"
+              onClick={() => whatsPlatform("PC")}
+            >
+              PC
+            </h1>
+            <h1
+              className="tex-lg font-semibold cursor-pointer"
+              onClick={() => whatsPlatform("PS4")}
+            >
+              PS4
+            </h1>
+            <h1
+              className="tex-lg font-semibold cursor-pointer"
+              onClick={() => whatsPlatform("STEAM")}
+            >
+              Steam
+            </h1>
+            <h1
+              className="tex-lg font-semibold cursor-pointer"
+              onClick={() => whatsPlatform("PS5")}
+            >
+              PS5
+            </h1>
+            <h1
+              className="tex-lg font-semibold cursor-pointer"
+              onClick={() => whatsPlatform("xbox")}
+            >
+              Xbox-Series-XS
+            </h1>
+            <h1
+              className="tex-lg font-semibold cursor-pointer"
+              onClick={() => whatsPlatform("android")}
+            >
+              Android
+            </h1>
+          </div>
+
+          <div className="relative">
+            <label htmlFor="Search" className="sr-only">
+              Search
+            </label>
+            <input
+              onChange={handleSearchInput}
+              type="text"
+              id="Search"
+              placeholder="Search for..."
+              className="h-9 rounded-md py-2.5 pe-10 bg-transparent text-zinc-100 shadow-sm sm:text-sm outline-none"
+            />
+            <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
+              <button
+                type="button"
+                className="text-gray-600 hover:text-gray-700"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
-              </svg>
-            </button>
-          </span>
-        </div>
+                <span className="sr-only">Search</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                  />
+                </svg>
+              </button>
+            </span>
+          </div>
         </div>
       </header>
 
-     
-      {filteredUsers.length === 0 ? (
+      {gamesDTO.length === 0 ? (
         <div className=" flex w-full h-full justify-center items-center">
-          <LoaderCircle className="animate-spin size-10" /> 
+          <LoaderCircle className="animate-spin size-10" />
         </div>
-      ) : 
-      
-        
-      (   filteredUsers.slice((page - 1) * 15, page * 15).map((game) => (
-          
-          <div
-            onClick={() => teste(game)}
-            className="h-full w-56 bg-zinc-700 rounded-md text-center shadow-md cursor-pointer hover:scale-105 transition duration-300 overflow-hidden whitespace-nowrap"
-            key={game.id}
-          >
-            <img className="w-full h-28" src={game.thumbnail} alt="" />
-            <TitulosH1>{game.title}</TitulosH1>
-            <p className="truncate font-semibold">{game.platforms}</p>
-            <div className="flex items-center justify-center gap-3 my-5">
-              <strong className="border border-green-800 p-0.5 text-sm rounded bg-green-800 tracking-widest">
-                FREE
-              </strong>
-              <p className="line-through font-medium">{game.worth}</p>
+      ) : filteredUsers.length === 0 ? (
+        <div className="flex w-full h-full font-bold justify-center items-center">
+          <p>Nenhum resultado encontrado.</p>
+        </div>
+      ) : (
+        gamesDTO
+          .filter((game) =>
+            game.title.toLowerCase().includes(search.toLowerCase())
+          )
+          .slice((page - 1) * 15, page * 15)
+          .map((game) => (
+            <div
+              onClick={() => teste(game)}
+              className="h-full w-56 bg-zinc-700 rounded-md text-center shadow-md cursor-pointer hover:scale-105 transition duration-300 overflow-hidden whitespace-nowrap"
+              key={game.id}
+            >
+              <img className="w-full h-28" src={game.thumbnail} alt="" />
+              <TitulosH1>{game.title}</TitulosH1>
+              <p className="truncate font-semibold">{game.platforms}</p>
+              <div className="flex items-center justify-center gap-3 my-5">
+                <strong className="border border-green-800 p-0.5 text-sm rounded bg-green-800 tracking-widest">
+                  FREE
+                </strong>
+                <p className="line-through font-medium">{game.worth}</p>
+              </div>
+              <div className="flex justify-center items-center gap-1 pb-3">
+                <Clock className="text-red-600 size-5" />
+                <p className="capitalize text-sm font-bold">
+                  {dayjs().from(dayjs(game.end_date), true)}
+                </p>
+              </div>
             </div>
-            <div className="flex justify-center items-center gap-1 pb-3">
-              <Clock className="text-red-600 size-5" />
-              <p className="capitalize text-sm font-bold">
-                {dayjs().from(dayjs(game.end_date), true)}
-              </p>
-            </div>
-          </div>
-        ))
+          ))
       )}
       <div className="flex justify-between w-full px-5">
-      <p className="tex-md font-medium">Mostrando {gamesDTO.length >= 15 ? 15 : gamesDTO.length} de {gamesDTO.length}</p>
+        <p className="tex-md font-medium">
+          Mostrando {gamesDTO.length >= 15 ? 15 : gamesDTO.length} de{" "}
+          {gamesDTO.length}
+        </p>
         <div className="flex gap-2">
-       
           <button disabled={page === 1}>
             <CircleArrowLeft
               onClick={previous}
@@ -241,10 +270,6 @@ function montar() {
           </button>
         </div>
       </div>
-
-
-      
     </div>
-    
   );
-}
+};
