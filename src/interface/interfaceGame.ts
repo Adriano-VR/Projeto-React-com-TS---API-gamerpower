@@ -10,4 +10,5 @@
         worth:string
         description:string
         image:string
+        users:number
     }
