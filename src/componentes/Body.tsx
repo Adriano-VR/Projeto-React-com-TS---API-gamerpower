@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   CircleArrowRight,
@@ -22,9 +22,8 @@ export const Body = () => {
   const navigate = useNavigate();
 
   const [gamesDTO, setGamesDTO] = useState<GamesProps[]>([]);
+  const {next,previous,search,page,setPage} = useContext(CategoryContext)
 
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
   const {selectedCategory,setSelectedCategory} = useContext(CategoryContext);
   const [selectedSort, setSelectedSort] = useState<string>("");
 
@@ -53,18 +52,8 @@ export const Body = () => {
     navigate("/detalhes", { state: { key: obj } });
   }
 
-  function next() {
-    setPage(page + 1);
-  }
-
-  function previous() {
-    setPage(page - 1);
-  }
-
-  function handleSearchInput(event: ChangeEvent<HTMLInputElement>) {
-    setSearch(event.target.value);
-    setPage(1);
-  }
+ 
+ 
 
   const filteredUsers = [...gamesDTO].filter((game) =>
     game.title.toLowerCase().includes(search.toLowerCase())
@@ -109,15 +98,10 @@ export const Body = () => {
 
 
   return (
-   
-  
-    
-    <div className="flex flex-wrap gap-7 justify-center ">
+   <>
+    <div className="flex justify-between items-center pb-5">
       <TemporaryDrawer />
-      <header className="bg-zinc-800 w-full pb-5 flex justify-center border-b border-white/30 flex-col ">
-  
-        <div className="flex justify-between items-center">
-          <div>
+      <div className="flex justify-end items-center w-44">
             <select
               onChange={whatsFilter}
               name="HeadlineAct"
@@ -128,46 +112,13 @@ export const Body = () => {
               <option value="popularidade">Popular</option>
               <option value="valor">Valor</option>
             </select>
-          </div>
-
-         
-
-          <div className="relative">
-            <label htmlFor="Search" className="sr-only">
-              Search
-            </label>
-            <input
-              onChange={handleSearchInput}
-              type="text"
-              id="Search"
-              placeholder="Search for..."
-              className="h-9 rounded-md py-2.5 pe-10 bg-transparent text-zinc-100 shadow-sm sm:text-sm outline-none"
-            />
-            <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
-              <button
-                type="button"
-                className="text-gray-600 hover:text-gray-700"
-              >
-                <span className="sr-only">Search</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                  />
-                </svg>
-              </button>
-            </span>
-          </div>
         </div>
-      </header>
+      </div>
+    
+    <div className="flex flex-wrap gap-7 justify-center ">
+    
+      
+    
 
       {gamesDTO.length === 0 ? (
         <div className=" flex w-full h-full justify-center items-center">
@@ -191,7 +142,7 @@ export const Body = () => {
             >
               <img className="w-full h-28" src={game.thumbnail} alt="" />
               <TitulosH1>{game.title}</TitulosH1>
-              <p className="truncate font-semibold">{game.platforms}</p>
+              <p className=" px-6 truncate font-semibold">{game.platforms}</p>
               <div className="flex items-center justify-center gap-3 my-5">
                 <strong className="border border-green-800 p-0.5 text-sm rounded bg-green-800 tracking-widest">
                   FREE
@@ -228,5 +179,6 @@ export const Body = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };

@@ -7,8 +7,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        lato: ['lato', 'sans-serif'],
-        tilt : ['tilt' ,'sans-serif' ]
+        mont: ['mont', 'sans-serif'],
+        tilt : ['tilt' ,'sans-serif' ],
+        poppins: ['poppins', 'sans-serif']
       },
     },
   },

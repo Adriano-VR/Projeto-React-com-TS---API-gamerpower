@@ -17,6 +17,8 @@ import pc from "../assets/pc.png"
 import MenuIcon from '@mui/icons-material/Menu';
 import { Input } from './input';
 
+import poppins from '../assets/fonts/Poppins/Poppins-SemiBold.ttf';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 
@@ -65,10 +67,33 @@ export default function TemporaryDrawer() {
     };
 
 
+    const theme = createTheme({
+      typography: {
+        fontFamily: 'poppins, Arial',
+      },
+      components: {
+        MuiCssBaseline: {
+          styleOverrides: `
+            @font-face {
+              font-style: normal;
+              font-display: swap;
+              font-weight: 100;
+              src: local('poppins'), local('poppins-Regular'), url(${poppins}) format('truetype');
+              unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+            }
+          `,
+        },
+      },
+    });
+
+
 
   const DrawerList = (
+    <ThemeProvider theme={theme}>
+
     <Box sx={{ width: 300,backgroundColor:'rgb(63 63 70 )',height:'100%'}} role="presentation" >
       <Input />      
+      <Divider />
       <List className='text-white'>
         {['ALL','PC', 'PS4', 'PS5', 'Steam','Xbox-Series-XS','Android'].map((text, index) => (
           <ListItem key={index} disablePadding>
@@ -81,12 +106,14 @@ export default function TemporaryDrawer() {
           </ListItem>
         ))}
       </List>
-      <Divider />
+    
     
     </Box>
+    </ThemeProvider>
   );
 
   return (
+    
     <div className='w-full '>
       <MenuIcon onClick={toggleDrawer(true)} fontSize='large' className='cursor-pointer text-left' />
       <Drawer open={open} onClose={toggleDrawer(false)}>

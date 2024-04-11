@@ -4,11 +4,8 @@
 
 @layer base {
      @font-face {
-       font-family: 'lato';
-       font-style: normal;
-       font-weight: 400;
-       font-display: swap;
-       src: url('./assets/fonts/Lato/Lato-Bold.ttf') format('truetype');
+       font-family: 'mont';
+       src: url('./assets/fonts/Montserrat/static/Montserrat-SemiBoldItalic.ttf') format('truetype');
      }
 
      @font-face {
@@ -17,5 +14,14 @@
       font-weight: 600;
       font-display: swap;
       src: url('./assets/fonts/Tilt_Neon/static/TiltNeon-Regular.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'marker';
+      src: url('./assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'poppins';
+      src: url('./assets/fonts/Poppins/Poppins-Bold.ttf') format('truetype');
     }
    }
