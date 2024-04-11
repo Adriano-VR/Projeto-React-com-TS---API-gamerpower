@@ -67,7 +67,11 @@ export const Body = () => {
       sort = "popularity";
     } else if (drop.value === "valor") {
       sort = "value";
-    } else if (drop.value === "default") {
+    } else if(drop.value === 'data'){
+      sort = "date"
+    }
+    
+    else if (drop.value === "default") {
       setPage(1);
     }
 
@@ -103,7 +107,7 @@ export const Body = () => {
    <>
     <div className="flex justify-between items-center pb-5 px-1">
       <TemporaryDrawer />
-      <div className="flex justify-end items-center w-44">
+      <div className="flex justify-end items-center w-64">
             <select
               onChange={whatsFilter}
               name="HeadlineAct"
@@ -111,6 +115,7 @@ export const Body = () => {
               className="bg-transparent h-9 mt-1.5 w-full rounded-lg border-zinc-500 text-zinc-500 sm:text-sm"
             >
               <option value="default">Please select</option>
+              <option value="data">Data</option>
               <option value="popularidade">Popular</option>
               <option value="valor">Valor</option>
             </select>
@@ -163,7 +168,7 @@ export const Body = () => {
       )}
       <div className="flex justify-between w-full px-5">
         <p className="tex-md font-medium">
-          Mostrando {gamesDTO.length >= 15 ? 15 : gamesDTO.length} de{" "}
+          Itens 
           {gamesDTO.length}
         </p>
         <div className="flex gap-2">
