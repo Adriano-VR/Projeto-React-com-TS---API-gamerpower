@@ -14,7 +14,7 @@ import { GamesProps } from "../interface/interfaceGame";
 import { TitulosH1 } from "./Titulos";
 import TemporaryDrawer from "./Drawer";
 import { CategoryContext } from "../context/contextCategory";
-
+import ErrorIcon from '@mui/icons-material/Error';
 dayjs.extend(relativeTime);
 dayjs.locale("pt-br");
 
@@ -22,7 +22,7 @@ export const Body = () => {
   const navigate = useNavigate();
 
   const [gamesDTO, setGamesDTO] = useState<GamesProps[]>([]);
-  const {next,previous,search,page,setPage} = useContext(CategoryContext)
+  const {next,previous,search,page,setPage,setSearch} = useContext(CategoryContext)
 
   const {selectedCategory,setSelectedCategory} = useContext(CategoryContext);
   const [selectedSort, setSelectedSort] = useState<string>("");
@@ -80,6 +80,8 @@ export const Body = () => {
 
   function buildURL() {
     let url = "https://gamerpower.p.rapidapi.com/api/giveaways";
+    setSearch('')
+    
     if(selectedCategory === 'all'){
       setSelectedCategory('')
     }
@@ -99,7 +101,7 @@ export const Body = () => {
 
   return (
    <>
-    <div className="flex justify-between items-center pb-5">
+    <div className="flex justify-between items-center pb-5 px-1">
       <TemporaryDrawer />
       <div className="flex justify-end items-center w-44">
             <select
@@ -125,7 +127,8 @@ export const Body = () => {
           <LoaderCircle className="animate-spin size-10" />
         </div>
       ) : filteredUsers.length === 0 ? (
-        <div className="flex w-full h-full font-bold justify-center items-center">
+        <div className="flex flex-col gap-3 w-full h-full font-bold justify-center items-center">
+         <ErrorIcon fontSize="large" color="error" />
           <p>Nenhum resultado encontrado.</p>
         </div>
       ) : (

@@ -7,7 +7,7 @@ type CategoryContextProps = {
     setSelectedSort: (sort: string) => void;
     handleSearchInput:(event: ChangeEvent<HTMLInputElement>) => void;
     search: string
-    // setSearch : (search:string) => void
+    setSearch : (search:string) => void
     page:number
     setPage: (page: number) => void;
     next: () => void; 
@@ -45,7 +45,7 @@ export const CategoryContextProvider = ({ children }: CategoryProviderProps) => 
 
 
   return (
-    <CategoryContext.Provider value={{ selectedCategory, setSelectedCategory,selectedSort,setSelectedSort,search,page,handleSearchInput, next,previous,setPage}}>
+    <CategoryContext.Provider value={{ selectedCategory, setSelectedCategory,selectedSort,setSelectedSort,search,page,handleSearchInput, next,previous,setPage,setSearch}}>
       {children}
     </CategoryContext.Provider>
   );
