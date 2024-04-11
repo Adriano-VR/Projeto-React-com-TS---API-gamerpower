@@ -15,6 +15,7 @@ import xbox from "../assets/xbox.png"
 import android from "../assets/android.png"
 import pc from "../assets/pc.png"
 import MenuIcon from '@mui/icons-material/Menu';
+import { Input } from './input';
 
 
 
@@ -38,25 +39,27 @@ export default function TemporaryDrawer() {
 
 
   const  handleItemClick = (text:string) => {
+    setOpen(false)
     setSelectedCategory(text)
+  
     }
 
     const getIcon = (category: string) => {
       switch (category.toLowerCase()) {
         case 'all':
-          return <GamesIcon fontSize='large' color='info' />;
+          return <GamesIcon color='info' className='size-6' />;
         case 'pc':
-          return <img src={pc} alt="" className='size-8' />
+          return <img src={pc} alt="" className='size-6' />
         case 'ps4':
-         return <img src={ps} alt="" className='size-8' />
+         return <img src={ps} alt="" className='size-6' />
         case 'ps5':
-          return <img src={ps} alt="" className='size-8' />
+          return <img src={ps} alt="" className='size-6' />
          case 'steam':
-          return <img src={steam} alt="" className='size-8' />
+          return <img src={steam} alt="" className='size-6' />
         case 'xbox-series-xs':
-          return <img src={xbox} alt="" className='size-8' />
+          return <img src={xbox} alt="" className='size-6' />
         case 'android':
-          return <img src={android} alt="" className='size-8' />
+          return <img src={android} alt="" className='size-6' />
       
       }
     };
@@ -64,7 +67,8 @@ export default function TemporaryDrawer() {
 
 
   const DrawerList = (
-    <Box sx={{ width: 300,backgroundColor:'  rgb(63 63 70 )',height:'100%'}} role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ width: 300,backgroundColor:'rgb(63 63 70 )',height:'100%'}} role="presentation" >
+      <Input />      
       <List className='text-white'>
         {['ALL','PC', 'PS4', 'PS5', 'Steam','Xbox-Series-XS','Android'].map((text, index) => (
           <ListItem key={index} disablePadding>
