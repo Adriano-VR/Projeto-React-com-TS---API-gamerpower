@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+     @font-face {
+       font-family: 'lato';
+       font-style: normal;
+       font-weight: 400;
+       font-display: swap;
+       src: url('./assets/fonts/Lato/Lato-Bold.ttf') format('truetype');
+     }
+
+     @font-face {
+      font-family: 'tilt';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('./assets/fonts/Tilt_Neon/static/TiltNeon-Regular.ttf') format('truetype');
+    }
+   }
