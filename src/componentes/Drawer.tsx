@@ -14,6 +14,8 @@ import steam from "../assets/logo-steam.png"
 import xbox from "../assets/xbox.png"
 import android from "../assets/android.png"
 import pc from "../assets/pc.png"
+import free from "../assets/controle-de-video-game.png"
+
 import MenuIcon from '@mui/icons-material/Menu';
 import { Input } from './input';
 
@@ -62,6 +64,8 @@ export default function TemporaryDrawer() {
           return <img src={xbox} alt="" className='size-6' />
         case 'android':
           return <img src={android} alt="" className='size-6' />
+        case 'free games':
+          return <img src={free} alt="" className='size-6 text-red' />
       
       }
     };
@@ -95,19 +99,25 @@ export default function TemporaryDrawer() {
       <Input />      
       <Divider />
       <List className='text-white'>
-        {['ALL','PC', 'PS4', 'PS5', 'Steam','Xbox-Series-XS','Android'].map((text, index) => (
+        {['ALL','Free Games','PC', 'PS4', 'PS5', 'Steam','Xbox-Series-XS','Android'].map((text, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton onClick={() => handleItemClick(text.toLowerCase())}>
               <ListItemIcon >
                 {getIcon(text)}
+                
               </ListItemIcon>
+            
               <ListItemText primary={text} />
+            
             </ListItemButton>
+           
           </ListItem>
+         
         ))}
       </List>
+     
     
-    
+        
     </Box>
     </ThemeProvider>
   );

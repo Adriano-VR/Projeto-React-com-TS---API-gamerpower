@@ -15,6 +15,7 @@ import { TitulosH1 } from "./Titulos";
 import TemporaryDrawer from "./Drawer";
 import { CategoryContext } from "../context/contextCategory";
 import ErrorIcon from '@mui/icons-material/Error';
+
 dayjs.extend(relativeTime);
 dayjs.locale("pt-br");
 
@@ -22,7 +23,7 @@ export const Body = () => {
   const navigate = useNavigate();
 
   const [gamesDTO, setGamesDTO] = useState<GamesProps[]>([]);
-  const {next,previous,search,page,setPage,setSearch} = useContext(CategoryContext)
+  const {next,previous,search,page,setSearch} = useContext(CategoryContext)
 
   const {selectedCategory,setSelectedCategory} = useContext(CategoryContext);
   const [selectedSort, setSelectedSort] = useState<string>("");
@@ -31,10 +32,11 @@ export const Body = () => {
     const options = {
       method: "GET",
       url: url,
-
+    
       headers: {
         "X-RapidAPI-Key": "7f5ed69f57msh56242f71d3966fbp11c1d2jsnd0c316423ce1",
         "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
+
       },
     };
 
@@ -50,55 +52,53 @@ export const Body = () => {
 
   function teste(obj: GamesProps) {
     navigate("/detalhes", { state: { key: obj } });
+    document.title = obj.title;
   }
 
- 
- 
 
   const filteredUsers = [...gamesDTO].filter((game) =>
     game.title.toLowerCase().includes(search.toLowerCase())
   );
 
 
-  function whatsFilter() {
-    let sort = "";
-    const drop: HTMLSelectElement = document.querySelector("#HeadlineAct")!;
-    if (drop.value === "popularidade") {
-      sort = "popularity";
-    } else if (drop.value === "valor") {
-      sort = "value";
-    } else if(drop.value === 'data'){
-      sort = "date"
-    }
-    
-    else if (drop.value === "default") {
-      setPage(1);
-    }
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSort(event.target.value);
+  };
 
-    setSelectedSort(sort);
-  }
+
 
   useEffect(() => {
     buildURL();
   }, [selectedSort, selectedCategory]);
 
+
   function buildURL() {
-    let url = "https://gamerpower.p.rapidapi.com/api/giveaways";
-    setSearch('')
-    
-    if(selectedCategory === 'all'){
-      setSelectedCategory('')
-    }
-    else if (selectedSort.length > 0 && selectedCategory.length > 0) {
-      url = `https://gamerpower.p.rapidapi.com/api/giveaways?platform=${selectedCategory}&sort-by=${selectedSort}`;
-    } else if (selectedSort.length > 0 && selectedCategory.length === 0) {
-      url = `https://gamerpower.p.rapidapi.com/api/giveaways?sort-by=${selectedSort}`;
-    } else if (selectedSort.length === 0 && selectedCategory.length > 0) {
-      url = `https://gamerpower.p.rapidapi.com/api/giveaways?platform=${selectedCategory}`;
+    const url = new URL("https://gamerpower.p.rapidapi.com/api/giveaways");
+    setSearch('');
+
+    if (selectedCategory === 'all') {
+        setSelectedCategory('');
+        setSearch('')
+        
+    } else if (selectedCategory === 'free games') {
+      url.searchParams.set("type", "game");
+    } else if (selectedSort.length > 0) {
+        if (selectedCategory.length > 0) {
+          url.searchParams.set("platform",selectedCategory)
+          url.searchParams.set("sort-by",selectedSort)
+        } else {
+          url.searchParams.set("sort-by",selectedSort)
+        }
+    } else if (selectedCategory.length > 0) {
+      url.searchParams.set("platform", selectedCategory)
+       
     }
 
-    fetchData(url);
-  }
+    fetchData(url.toString());
+    
+}
+
+
 
 
 
@@ -109,30 +109,29 @@ export const Body = () => {
       <TemporaryDrawer />
       <div className="flex justify-end items-center w-64">
             <select
-              onChange={whatsFilter}
+            value={selectedSort}
+              onChange={handleChange}
               name="HeadlineAct"
               id="HeadlineAct"
               className="bg-transparent h-9 mt-1.5 w-full rounded-lg border-zinc-500 text-zinc-500 sm:text-sm"
             >
               <option value="default">Please select</option>
-              <option value="data">Data</option>
-              <option value="popularidade">Popular</option>
-              <option value="valor">Valor</option>
+              <option value="date">Data</option>
+              <option value="popularity">Popular</option>
+              <option value="value">Valor</option>
             </select>
         </div>
       </div>
     
-    <div className="flex flex-wrap gap-7 justify-center ">
+    <div className="flex flex-wrap min-h-screen  gap-7 justify-center ">
     
-      
-    
-
+  
       {gamesDTO.length === 0 ? (
-        <div className=" flex w-full h-full justify-center items-center">
+        <div className=" flex w-full min-h-[80vh] justify-center items-center">
           <LoaderCircle className="animate-spin size-10" />
         </div>
       ) : filteredUsers.length === 0 ? (
-        <div className="flex flex-col gap-3 w-full h-full font-bold justify-center items-center">
+        <div className="flex flex-col gap-3 w-full  font-bold justify-center items-center">
          <ErrorIcon fontSize="large" color="error" />
           <p>Nenhum resultado encontrado.</p>
         </div>
@@ -166,10 +165,10 @@ export const Body = () => {
             </div>
           ))
       )}
-      <div className="flex justify-between w-full px-5">
-        <p className="tex-md font-medium">
-          Itens 
-          {gamesDTO.length}
+      <div className="flex justify-between w-full px-5 items-center">
+        <p className="tex-md font-medium ">
+       
+        {filteredUsers.length === 0 ? '0' : gamesDTO.length}  ITEMS
         </p>
         <div className="flex gap-2">
           <button disabled={page === 1}>
