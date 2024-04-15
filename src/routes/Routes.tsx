@@ -4,6 +4,7 @@ import { PageDetalhes } from "../componentes/PageDetalhes";
 import { CategoryContextProvider } from "../context/contextCategory";
 import { Login } from "../componentes/Login";
 import CreateAccount, {  } from "../componentes/CreateAccount";
+import { Favoritos } from "../componentes/Favoritos";
 
 
 
@@ -25,6 +26,10 @@ export const Routes = ()   => {
             {
               path: "/create",
               element: <CreateAccount />,
+            },
+            {
+              path: "/favoritos",
+              element: <Favoritos />,
             }
         
       ]);

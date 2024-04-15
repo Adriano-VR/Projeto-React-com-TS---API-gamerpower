@@ -28,9 +28,14 @@ export const Login = () => {
   };
 
   const fazerLogin = async () => {
+
+    
     try {
+
+      
       const db = await createDatabase();
-      const user = await db.users
+  
+      const user = await db.games
         .findOne({ selector: { name: username } })
         .exec();
 

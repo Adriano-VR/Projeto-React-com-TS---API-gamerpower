@@ -8,11 +8,11 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { useState } from "react";
 import { createDatabase } from "../db/db";
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { SquareArrowLeft } from "lucide-react";
+import { gerarNumeroAleatorio } from "../utils/gerarNumeroAleatorio";
 
 
 const steps = [
@@ -64,9 +64,10 @@ export default function VerticalLinearStepper() {
       return;
     }
     try {
-        const id = uuidv4()
+      
         const db = await createDatabase();
-        await db.users.insert({id ,name:username,password})
+        const id = gerarNumeroAleatorio(1,1000)
+        await db.games.insert({id ,name:username,password})
         toast.success("Conta Criada com Sucesso", {
           position: "top-center",
           autoClose: 2400,

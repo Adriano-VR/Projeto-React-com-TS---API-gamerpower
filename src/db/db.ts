@@ -1,59 +1,64 @@
-import { addRxPlugin, createRxDatabase } from 'rxdb';
-import { RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
-import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
-import { v4 as uuidv4 } from 'uuid';
+    import { addRxPlugin, createRxDatabase } from 'rxdb';
+    import { RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
+    import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
+import { gerarNumeroAleatorio } from '../utils/gerarNumeroAleatorio';
 
 
-addRxPlugin(RxDBDevModePlugin);
+    addRxPlugin(RxDBDevModePlugin);
 
-export const  createDatabase = async () => {
-    const dbuser = await createRxDatabase({
-        name: 'dbuser',
-        storage: getRxStorageDexie(),
-        ignoreDuplicate: true
-    });
+    export const  createDatabase = async () => {
+        const dbjogos = await createRxDatabase({
+            name: 'dbjogos',
+            storage: getRxStorageDexie(),
+            ignoreDuplicate: true,
+            
+        });
 
-    const tableParams = {
-        version: 0,
-        primaryKey: 'id',
-        type: 'object',
-        properties: {
-            id: {
-                type: 'string',
-                auto: true,
-                maxLength: 100,
+
+        const tableParams = {
+            version: 0,
+            primaryKey: 'id',
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'string',
+                    maxLength: 1000,
+                },
+                name: {
+                    type: 'string'
+                },
+                password: {
+                    type: 'string'
+                },
+                isFavorite: {
+                    type: 'boolean',
+                    default: false
+                }
             },
-            name: {
-                type: 'string'
-            },
-            password: {
-                type: 'string'
+            required: ['id','name', 'password','isFavorite']
+        };
+
+        await dbjogos.addCollections({
+            games: {
+                schema: tableParams
             }
-        },
-        required: ['id','name', 'password']
-    };
+        });
 
-     await dbuser.addCollections({
-        users: {
-            schema: tableParams
-        }
-    });
+        // await dbjogos.games.remove();
 
-    //  await dbuser.users.remove();
-
-
-
-    const id = uuidv4()
-
-    await dbuser.users.insert({id , name:'admin' ,password:'admin'})
     
-    // const users = await dbuser.users.find().exec();
-    // users.forEach(user => {
-    //     console.log('ID:', user.id, 'Nome:', user.name, 'Senha:', user.password, "image" , user.image);
-    // });
 
-    return dbuser; 
-};
+        const id = gerarNumeroAleatorio(0,5000)
+
+        await dbjogos.games.insert({id , name:'admin' ,password:'admin',isFavorite:false});
+        
+        const games = await dbjogos.games.find().exec();
+        games.forEach(games => {
+            console.log('ID:', games.id, 'Nome:', games.name, 'Senha:', games.password , 'favorite' , games.isFavorite);
+        });
+
+        return dbjogos; 
+    };
 
 
 
