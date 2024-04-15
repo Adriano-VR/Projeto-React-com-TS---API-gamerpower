@@ -28,7 +28,8 @@ export const PageDetalhes = () => {
   
   
     return (
-        <div className='flex flex-col mx-auto  w-9/12'>
+      <div className=' flex flex-col items-center justify-center h-screen'>
+        <div className='flex flex-col w-10/12 '>
           <SquareArrowLeft   onClick={() => {
             document.title = 'GAMES'
             navigate("/")}} className=' mb-2 cursor-pointer size-10' />
@@ -55,6 +56,7 @@ export const PageDetalhes = () => {
 
             </div>
            
+        </div>
         </div>
         </div>
     )

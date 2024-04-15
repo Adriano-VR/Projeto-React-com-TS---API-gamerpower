@@ -12,3 +12,10 @@
         image:string
         users:number
     }
+
+
+    export interface UserLogged {
+        id?: string;
+        name: string;
+        image:string;
+    }

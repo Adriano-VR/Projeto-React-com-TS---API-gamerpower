@@ -9,7 +9,7 @@ import {
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/pt-br";
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { GamesProps } from "../interface/interfaceGame";
 import { TitulosH1 } from "./Titulos";
 import TemporaryDrawer from "./Drawer";
@@ -27,6 +27,8 @@ export const Body = () => {
 
   const {selectedCategory,setSelectedCategory} = useContext(CategoryContext);
   const [selectedSort, setSelectedSort] = useState<string>("");
+
+
 
   const fetchData = async (url: string) => {
     const options = {
@@ -104,9 +106,9 @@ export const Body = () => {
 
 
   return (
-   <>
+   <div className="p-5">
     <div className="flex justify-between items-center pb-5 px-1">
-      <TemporaryDrawer />
+      <TemporaryDrawer  /> 
       <div className="flex justify-end items-center w-64">
             <select
             value={selectedSort}
@@ -123,7 +125,7 @@ export const Body = () => {
         </div>
       </div>
     
-    <div className="flex flex-wrap min-h-screen  gap-7 justify-center ">
+    <div className="flex flex-wrap gap-7 justify-center ">
     
   
       {gamesDTO.length === 0 ? (
@@ -144,7 +146,7 @@ export const Body = () => {
           .map((game) => (
             <div
               onClick={() => teste(game)}
-              className="h-full w-56 bg-zinc-700 rounded-md text-center shadow-md cursor-pointer hover:scale-105 transition duration-300 overflow-hidden whitespace-nowrap"
+              className="h-full w-56 bg-zinc-700 rounded-md text-center shadow-md cursor-pointer hover:scale-105  duration-300 overflow-hidden whitespace-nowrap"
               key={game.id}
             >
               <img className="w-full h-28" src={game.thumbnail} alt="" />
@@ -158,11 +160,12 @@ export const Body = () => {
               </div>
               <div className="flex justify-center items-center gap-1 pb-3">
                 <Clock className="text-red-600 size-5" />
-                <p className="capitalize text-sm font-bold">
+                <p className="capitalize text-sm font-bold ">
                   {dayjs().from(dayjs(game.end_date), true)}
                 </p>
               </div>
-            </div>
+            </div> 
+
           ))
       )}
       <div className="flex justify-between w-full px-5 items-center">
@@ -186,6 +189,6 @@ export const Body = () => {
         </div>
       </div>
     </div>
-    </>
+    </div>
   );
 };

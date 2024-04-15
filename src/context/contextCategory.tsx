@@ -1,4 +1,5 @@
-import { ChangeEvent, ReactNode, createContext, useState } from "react";
+import { ChangeEvent, ReactNode, createContext, useState, } from "react";
+import { UserLogged } from "../interface/interfaceGame";
 
 type CategoryContextProps = {
     selectedCategory: string;
@@ -11,7 +12,9 @@ type CategoryContextProps = {
     page:number
     setPage: (page: number) => void;
     next: () => void; 
-    previous: () => void; //
+    previous: () => void; 
+    loggedInUser:UserLogged | undefined
+    UserLogged:(user:UserLogged) => void;
 };
 
 type CategoryProviderProps = {
@@ -27,6 +30,7 @@ export const CategoryContextProvider = ({ children }: CategoryProviderProps) => 
   const [selectedSort, setSelectedSort] = useState("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [loggedInUser, setLoggedInUser] = useState<UserLogged | undefined>(); 
 
 
 
@@ -34,6 +38,12 @@ export const CategoryContextProvider = ({ children }: CategoryProviderProps) => 
     setSearch(event.target.value);
     setPage(1);
   }
+
+  function UserLogged(user: UserLogged ) {
+    setLoggedInUser(user);
+  }
+
+ 
 
   function next() {
     setPage(page + 1);
@@ -43,9 +53,8 @@ export const CategoryContextProvider = ({ children }: CategoryProviderProps) => 
     setPage(page - 1);
   }
 
-
   return (
-    <CategoryContext.Provider value={{ selectedCategory, setSelectedCategory,selectedSort,setSelectedSort,search,page,handleSearchInput, next,previous,setPage,setSearch}}>
+    <CategoryContext.Provider value={{ selectedCategory, setSelectedCategory,selectedSort,setSelectedSort,search,page,handleSearchInput, next,previous,setPage,setSearch,UserLogged,loggedInUser}}>
       {children}
     </CategoryContext.Provider>
   );
