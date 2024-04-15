@@ -158,6 +158,7 @@ export const Body = () => {
                 </strong>
                 <p className="line-through font-medium">{game.worth}</p>
               </div>
+             
               <div className="flex justify-center items-center gap-1 pb-3">
                 <Clock className="text-red-600 size-5" />
                 <p className="capitalize text-sm font-bold ">
