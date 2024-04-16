@@ -1,65 +1,19 @@
-    import { addRxPlugin, createRxDatabase } from 'rxdb';
-    import { RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
-    import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
-import { gerarNumeroAleatorio } from '../utils/gerarNumeroAleatorio';
+import { initializeApp } from "firebase/app";
+import { getDatabase, push, ref, set } from "firebase/database";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBFJaBbTVO7LuPfnYbFM5XE5F3qFTXgUE4",
+  authDomain: "projetogames-7b088.firebaseapp.com",
+  projectId: "projetogames-7b088",
+  storageBucket: "projetogames-7b088.appspot.com",
+  messagingSenderId: "768554019511",
+  appId: "1:768554019511:web:e73d6a8d92e6bf8047bb32",
+  databaseURL: "https://projetogames-7b088-default-rtdb.firebaseio.com/",
+
+};
 
 
-    addRxPlugin(RxDBDevModePlugin);
-
-    export const  createDatabase = async () => {
-        const dbjogos = await createRxDatabase({
-            name: 'dbjogos',
-            storage: getRxStorageDexie(),
-            ignoreDuplicate: true,
-            
-        });
-
-
-        const tableParams = {
-            version: 0,
-            primaryKey: 'id',
-            type: 'object',
-            properties: {
-                id: {
-                    type: 'string',
-                    maxLength: 1000,
-                },
-                name: {
-                    type: 'string'
-                },
-                password: {
-                    type: 'string'
-                },
-                isFavorite: {
-                    type: 'boolean',
-                    default: false
-                }
-            },
-            required: ['id','name', 'password','isFavorite']
-        };
-
-        await dbjogos.addCollections({
-            games: {
-                schema: tableParams
-            }
-        });
-
-        // await dbjogos.games.remove();
-
-    
-
-        const id = gerarNumeroAleatorio(0,5000)
-
-        await dbjogos.games.insert({id , name:'admin' ,password:'admin',isFavorite:false});
-        
-        const games = await dbjogos.games.find().exec();
-        games.forEach(games => {
-            console.log('ID:', games.id, 'Nome:', games.name, 'Senha:', games.password , 'favorite' , games.isFavorite);
-        });
-
-        return dbjogos; 
-    };
-
-
+const app = initializeApp(firebaseConfig);
+export const database = getDatabase(app);
 
 

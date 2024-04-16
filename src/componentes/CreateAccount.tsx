@@ -1,4 +1,8 @@
 import * as React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { SquareArrowLeft } from "lucide-react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -6,13 +10,9 @@ import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
-import { useState } from "react";
-import { createDatabase } from "../db/db";
-import { useNavigate } from "react-router-dom";
+import {  database } from "../db/db";
+import { push, ref, set } from "firebase/database";
 import { Flip, ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { SquareArrowLeft } from "lucide-react";
-import { gerarNumeroAleatorio } from "../utils/gerarNumeroAleatorio";
 
 
 const steps = [
@@ -48,6 +48,8 @@ export default function VerticalLinearStepper() {
     setActiveStep(0);
   };
 
+  
+
 
 
   const handleInputChange = (rotulo:string , event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,35 +59,29 @@ export default function VerticalLinearStepper() {
   };
   const navigate = useNavigate();
 
-  const add = async() => {
-    if(!username || !password) {
-      console.log("CAmpos Vazios");
-      
-      return;
-    }
-    try {
-      
-        const db = await createDatabase();
-        const id = gerarNumeroAleatorio(1,1000)
-        await db.games.insert({id ,name:username,password})
-        toast.success("Conta Criada com Sucesso", {
-          position: "top-center",
-          autoClose: 2400,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          theme: "dark",
-          transition: Flip,
-        });
 
-        setTimeout(() => {
-          navigate("/login");
-        }, 2500);
-        
-    } catch (error) {
-      toast.error("Erro," + error + "", {
+
+  const add = async () => {
+   
+  
+    try {
+      const usuariosRef = ref(database, 'usuarios');
+      const novoUsuarioRef = push(usuariosRef); // Obtém uma referência para o novo nó
+      const novoUsuarioKey = novoUsuarioRef.key; // Obtém a chave única gerada pelo Firebase
+  
+      // Define os favoritos como um array vazio
+      const favoritos:Array<string>  = [];
+  
+      // Adiciona os dados do novo usuário ao banco de dados usando set()
+      await set(novoUsuarioRef, {
+        id: novoUsuarioKey, // Salva o ID gerado como parte dos dados do usuário
+        username: username,
+        senha: password,
+        favoritos: favoritos // Define os favoritos como um array vazio
+      });
+  
+    
+      toast.success("Usuário adicionado com sucesso", {
         position: "top-center",
         autoClose: 2400,
         hideProgressBar: false,
@@ -96,14 +92,34 @@ export default function VerticalLinearStepper() {
         theme: "dark",
         transition: Flip,
       });
-        
-    }
 
-  }
+      setTimeout(() => {
+        navigate("/login");
+      }, 2500);
+    
+    } catch (err) {
+      toast.error("Erro ao adicionar usuário", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+        transition: Flip,
+      });
+    }
+  };
+  
+
+
+
 
   return (
     <>
-    <ToastContainer />
+     <ToastContainer />
+
 
     <div className=" flex items-center justify-center h-screen ">
       <div className=" shadow-md p-5 ">

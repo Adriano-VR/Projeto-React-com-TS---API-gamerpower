@@ -17,5 +17,5 @@
     export interface UserLogged {
         id?: string;
         name: string;
-        image:string;
+        image?:string;
     }

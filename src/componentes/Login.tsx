@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { createDatabase } from "../db/db";
+import { database } from "../db/db";
 import { useNavigate } from "react-router-dom";
 import { CategoryContext } from "../context/contextCategory";
 import { UserLogged } from "../interface/interfaceGame";
 import { SquareArrowLeft } from "lucide-react";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { get, ref } from "firebase/database";
 
 
 export const Login = () => {
@@ -28,64 +29,63 @@ export const Login = () => {
   };
 
   const fazerLogin = async () => {
-
-    
     try {
-
-      
-      const db = await createDatabase();
+      const usuariosRef = ref(database, 'usuarios');
+      const snapshot = await get(usuariosRef);
+      if (snapshot.exists()) {
+          
   
-      const user = await db.games
-        .findOne({ selector: { name: username } })
-        .exec();
-
-      if (!user) {
-        toast.error("Usuario Nao Encontrado", {
-          position: "top-center",
-          autoClose: 2400,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          theme: "dark",
-          transition: Flip,
-        });
+        const usuarios:UserLogged = snapshot.val();
+       
+       
+        const usuario = Object.values(usuarios).find(user => user.username === username);
+        if (usuario && usuario.senha === password) {
         
-        return;
-      }
+        
+          const loggedUser: UserLogged = {
+            id: usuario.id,
+            name: usuario.username,
+  
+          };
 
-      if (user.password === password) {
-        console.log("Login bem-sucedido");
-
-        const loggedUser: UserLogged = {
-          name: user.name,
-          image: user.image,
-        };
-
-        toast.success("Login Bem Sucedido", {
-          position: "top-center",
-          autoClose: 2400,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          theme: "dark",
-          transition: Flip,
-        });
        
-        UserLogged(loggedUser);
-        localStorage.setItem("user", JSON.stringify(loggedUser));
+          UserLogged(loggedUser);
+          localStorage.setItem("user", JSON.stringify(loggedUser));
+         
+          toast.success("Login Bem Sucedido", {
+            position: "top-center",
+            autoClose: 2400,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "dark",
+            transition: Flip,
+          });
 
-        setTimeout(() => {
-          navigate("/");
-        }, 2500);
+
+          setTimeout(() => {
+            navigate("/");
+          }, 2500);
+
+        } else {
+          toast.error("Nome de usuário ou senha incorretos.", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "dark",
+            transition: Flip,
+          });
+        }
       } else {
-     
-        toast.error("Dados Errados", {
+        toast.error("Nenhum usuário encontrado no banco de dados.", {
           position: "top-center",
-          autoClose: 2400,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -94,22 +94,11 @@ export const Login = () => {
           theme: "dark",
           transition: Flip,
         });
-       
       }
     } catch (error) {
-      toast.error("Erro", {
-        position: "top-center",
-        autoClose: 2400,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        theme: "dark",
-        transition: Flip,
-      });
-      throw error;
+      console.error('Erro ao fazer login:', error);
     }
+   
   };
 
   return (

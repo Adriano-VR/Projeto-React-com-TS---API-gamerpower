@@ -12,11 +12,13 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@firebase/database": "^1.0.4",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@tailwindcss/forms": "^0.5.7",
     "axios": "^1.6.8",
     "dayjs": "^1.11.10",
+    "firebase": "^10.9.0",
     "localforage": "^1.10.0",
     "lucide-react": "^0.365.0",
     "match-sorter": "^6.3.4",
@@ -27,6 +29,7 @@
     "rxdb": "^15.17.0",
     "rxjs": "^7.8.1",
     "sort-by": "^1.2.0",
+    "sqlite3": "^5.1.7",
     "tailwind-merge": "^2.2.2",
     "uuid": "^9.0.1"
   },

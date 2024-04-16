@@ -152,15 +152,20 @@ export default function TemporaryDrawer() {
         {DrawerList}
 
         {loggedInUser ? (
+            <>
+          <span className="cursor-pointer bg-zinc-700 text-zinc-100" onClick={() => navigate("/favoritos")}>Meus Favoritos</span>
           <div className="flex items-center bg-[#27272A] text-zinc-100 p-2">
             <Avatar sx={{ bgcolor: deepOrange[500], height: 60, width: 60 }}>
               {loggedInUser.name.charAt(0).toUpperCase()}
             </Avatar>
             <div className="flex flex-col items-center justify-center w-full">
               <p className="capitalize">Ola, {loggedInUser?.name + " !"}</p>
+
+
               <BasicMenu />
             </div>
           </div>
+          </>
         ) : (
           
 
@@ -168,7 +173,7 @@ export default function TemporaryDrawer() {
             <button
               className="text-lg flex items-center gap-2 p-3 mb-5  bg-zinc-900 rounded-lg shadow-md "
               onClick={() => navigate("/login")}
-            >
+             >
                 Login
               <LoginIcon fontSize="large" titleAccess="Login"  />
 
