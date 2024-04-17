@@ -25,6 +25,9 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import BasicMenu from "./Dashboard";
 import LoginIcon from '@mui/icons-material/Login';
+import { Icon } from '@iconify-icon/react';
+
+
 export default function TemporaryDrawer() {
   
   const [open, setOpen] = React.useState(false);
@@ -48,14 +51,12 @@ export default function TemporaryDrawer() {
   }, []);
 
 
-
-
-
   const toggleDrawer = (newOpen: boolean) => () => {
       setOpen(newOpen);
   };
 
   const handleItemClick = (text: string) => {
+    if(text === 'all') navigate("/");
     setOpen(false);
     setSelectedCategory(text);
   };
@@ -114,7 +115,7 @@ export default function TemporaryDrawer() {
       >
         <Input />
         <Divider />
-        <List className="text-white">
+        <List className="text-zinc-100">
           {[
             "ALL",
             "Free Games",
@@ -136,10 +137,27 @@ export default function TemporaryDrawer() {
             </ListItem>
           ))}
         </List>
-        <Divider />
+            <Divider />
+
+            {loggedInUser && (
+                <List className="text-zinc-100">
+                  <ListItem disablePadding>
+                    <ListItemButton  onClick={() => navigate("/favoritos")}>
+                    <ListItemIcon><Icon icon="mingcute:star-fill" style={{ fontSize: '30px',color:"gold" }} /></ListItemIcon>
+                    <ListItemText primary={'Meus Favoritos'} />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+            )}
+
+    
       </Box>
     </ThemeProvider>
   );
+
+  <span className="cursor-pointer bg-zinc-700 text-zinc-100 items-center justify-center flex" onClick={() => navigate("/favoritos")}>
+ 
+  </span>
 
   return (
     <div className="w-full ">
@@ -153,8 +171,8 @@ export default function TemporaryDrawer() {
 
         {loggedInUser ? (
             <>
-          <span className="cursor-pointer bg-zinc-700 text-zinc-100" onClick={() => navigate("/favoritos")}>Meus Favoritos</span>
-          <div className="flex items-center bg-[#27272A] text-zinc-100 p-2">
+        
+          <div className="flex items-center bg-[#27272A] text-zinc-200 p-2">
             <Avatar sx={{ bgcolor: deepOrange[500], height: 60, width: 60 }}>
               {loggedInUser.name.charAt(0).toUpperCase()}
             </Avatar>
@@ -169,13 +187,13 @@ export default function TemporaryDrawer() {
         ) : (
           
 
-          <div className="flex items-center justify-center bg-zinc-700 text-zinc-100 cursor-pointer">
+          <div className="flex items-center justify-center bg-zinc-700 text-zinc-200 cursor-pointer">
             <button
-              className="text-lg flex items-center gap-2 p-3 mb-5  bg-zinc-900 rounded-lg shadow-md "
+              className="text-lg flex items-center gap-2 mb-5 pb-1 border-b-8 border-b-orange-300  "
               onClick={() => navigate("/login")}
              >
                 Login
-              <LoginIcon fontSize="large" titleAccess="Login"  />
+              <LoginIcon fontSize="medium" titleAccess="Login"  />
 
           
             </button>
