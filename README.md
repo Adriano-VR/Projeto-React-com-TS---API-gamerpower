@@ -1,4 +1,4 @@
-# Nome do Seu Site
+# Projeto React 
 
 Este é o README para o seu site incrível que usa Vite com React. Ele também faz uso de APIs do Tailwind CSS, Firebase para autenticação, cadastro de usuário e salvamento de jogos favoritos do usuário logado, além de ter funcionalidades de filtros e pesquisa.
 
@@ -20,12 +20,12 @@ Certifique-se de ter as seguintes tecnologias instaladas em seu sistema antes de
 1. Crie um novo projeto no [Firebase Console](https://console.firebase.google.com/).
 2. Copie as chaves de configuração do seu projeto Firebase e cole no arquivo `.env` do seu projeto. Exemplo:
 
-VITE_FIREBASE_API_KEY=YOUR_API_KEY
-VITE_FIREBASE_AUTH_DOMAIN=YOUR_AUTH_DOMAIN
-VITE_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
-VITE_FIREBASE_STORAGE_BUCKET=YOUR_STORAGE_BUCKET
-VITE_FIREBASE_MESSAGING_SENDER_ID=YOUR_MESSAGING_SENDER_ID
-VITE_FIREBASE_APP_ID=YOUR_APP_ID
+- **VITE_FIREBASE_API_KEY=YOUR_API_KEY
+- **VITE_FIREBASE_AUTH_DOMAIN=YOUR_AUTH_DOMAIN
+- **VITE_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
+- **VITE_FIREBASE_STORAGE_BUCKET=YOUR_STORAGE_BUCKET
+- **VITE_FIREBASE_MESSAGING_SENDER_ID=YOUR_MESSAGING_SENDER_ID
+- **VITE_FIREBASE_APP_ID=YOUR_APP_ID
 
 
 3. Ative a autenticação por e-mail/senha no console do Firebase.
