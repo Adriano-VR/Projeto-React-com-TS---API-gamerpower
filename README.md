@@ -1,6 +1,6 @@
 # Projeto React 
 
-Este é o README para o seu site incrível que usa Vite com React. Ele também faz uso de APIs do Tailwind CSS, Firebase para autenticação, cadastro de usuário e salvamento de jogos favoritos do usuário logado, além de ter funcionalidades de filtros e pesquisa.
+Ele  faz uso de APIs do Tailwind CSS, Firebase para autenticação, cadastro de usuário e salvamento de jogos favoritos do usuário logado, além de ter funcionalidades de filtros e pesquisa.
 
 ## Requisitos do Sistema
 
