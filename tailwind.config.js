@@ -9,7 +9,8 @@ export default {
       fontFamily: {
         mont: ['mont', 'sans-serif'],
         tilt : ['tilt' ,'sans-serif' ],
-        poppins: ['poppins', 'sans-serif']
+        poppins: ['poppins', 'sans-serif'],
+        marker: ['marker', 'sans-serif']
       },
     },
   },

@@ -24,8 +24,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import BasicMenu from "./Dashboard";
-import LoginIcon from '@mui/icons-material/Login';
 import { Icon } from '@iconify-icon/react';
+
+
 
 
 export default function TemporaryDrawer() {
@@ -187,15 +188,11 @@ export default function TemporaryDrawer() {
         ) : (
           
 
-          <div className="flex items-center justify-center bg-zinc-700 text-zinc-200 cursor-pointer">
-            <button
-              className="text-lg flex items-center gap-2 mb-5 pb-1 border-b-8 border-b-orange-300  "
-              onClick={() => navigate("/login")}
-             >
-                Login
-              <LoginIcon fontSize="medium" titleAccess="Login"  />
+          <div className=" bg-zinc-700 text-zinc-200 cursor-pointer"  >
+            <button className="flex items-center justify-between w-full h-10 mb-5 px-5 hover:border-b border-green-400  " onClick={() => navigate("/login")}>
+               <span className="tracking-widest font-poppins text-lg uppercase font-semibold">Login</span> 
+               <Icon icon="basil:login-solid"  style={{fontSize:'2.5em'}}/>
 
-          
             </button>
           </div>
         )}
