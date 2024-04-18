@@ -1,30 +1,54 @@
-# React + TypeScript + Vite
+# Nome do Seu Site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o README para o seu site incrível que usa Vite com React. Ele também faz uso de APIs do Tailwind CSS, Firebase para autenticação, cadastro de usuário e salvamento de jogos favoritos do usuário logado, além de ter funcionalidades de filtros e pesquisa.
 
-Currently, two official plugins are available:
+## Requisitos do Sistema
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Certifique-se de ter as seguintes tecnologias instaladas em seu sistema antes de começar:
 
-## Expanding the ESLint configuration
+- Node.js
+- npm (ou yarn)
+- Firebase CLI (para configuração e administração do Firebase)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Configuração
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone este repositório para o seu sistema local.
+2. Navegue até o diretório do projeto e execute o comando `npm install` (ou `yarn install`) para instalar as dependências.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Configuração do Firebase
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Crie um novo projeto no [Firebase Console](https://console.firebase.google.com/).
+2. Copie as chaves de configuração do seu projeto Firebase e cole no arquivo `.env` do seu projeto. Exemplo:
+
+VITE_FIREBASE_API_KEY=YOUR_API_KEY
+VITE_FIREBASE_AUTH_DOMAIN=YOUR_AUTH_DOMAIN
+VITE_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
+VITE_FIREBASE_STORAGE_BUCKET=YOUR_STORAGE_BUCKET
+VITE_FIREBASE_MESSAGING_SENDER_ID=YOUR_MESSAGING_SENDER_ID
+VITE_FIREBASE_APP_ID=YOUR_APP_ID
+
+
+3. Ative a autenticação por e-mail/senha no console do Firebase.
+
+## Uso
+
+Para iniciar o servidor de desenvolvimento, execute o seguinte comando:
+
+npm run dev
+
+Isso iniciará o servidor de desenvolvimento em `http://localhost:3000`.
+
+## Funcionalidades
+
+- **Autenticação de Usuário**: Os usuários podem se cadastrar e fazer login usando o Firebase Authentication.
+- **Cadastro de Usuário**: Os usuários podem se cadastrar fornecendo um e-mail e uma senha.
+- **Salvamento de Jogos Favoritos**: Os usuários logados podem salvar seus jogos favoritos.
+- **Filtros e Pesquisa**: Funcionalidades para filtrar e pesquisar jogos.
+
+## Contribuição
+
+Contribuições são bem-vindas! Se você encontrar problemas ou tiver sugestões de novos recursos, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+## Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
