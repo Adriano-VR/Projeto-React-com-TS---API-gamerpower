@@ -105,7 +105,7 @@ export const PageDetalhes = () => {
                 {AddRemover ?
                 
                 // <button onClick={remover}>remover</button>
-                  <button  onClick={() => remover(adr,setAddRemover)} className='p-2 text-base text-red-500  text-center font-poppins tracking-widest flex items-center gap-2 '>
+                  <button  onClick={() => remover(adr,false,setAddRemover)} className='p-2 text-base text-red-500  text-center font-poppins tracking-widest flex items-center gap-2 '>
                   <Icon icon="gg:remove-r"   style={{fontSize:'20px'}}  />
                     <span>Remover</span> 
                   </button>
