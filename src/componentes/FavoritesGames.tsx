@@ -63,6 +63,7 @@ export const FavoriteGames = () => {
 
   const navigate = useNavigate();
 
+  
 
 
 
@@ -105,8 +106,11 @@ export const FavoriteGames = () => {
                 {hoveredDivId === game.id && (
                   <div className="absolute top-2 right-2 text-zinc-50">
                     <Icon
-                    onClick={()=>remover(game, true)}
-                      icon="fluent:delete-dismiss-20-filled"
+                    onClick={() => remover(game).then(() => window.location.reload()).catch((e) => console.log(e)
+                    )}
+
+                   
+                    icon="fluent:delete-dismiss-20-filled"
                       style={{ fontSize: "2em" }}
                     />
                   </div>
