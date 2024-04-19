@@ -189,9 +189,9 @@ export default function TemporaryDrawer() {
           
 
           <div className=" bg-zinc-700 text-zinc-200 cursor-pointer"  >
-            <button className="flex items-center justify-between w-full h-10 mb-5 px-5 hover:border-b border-green-400  " onClick={() => navigate("/login")}>
+            <button className="flex items-center justify-between w-full h-10 mb-5 px-5  " onClick={() => navigate("/login")}>
                <span className="tracking-widest font-poppins text-lg uppercase font-semibold">Login</span> 
-               <Icon icon="basil:login-solid"  style={{fontSize:'2.5em'}}/>
+               <Icon icon="basil:login-solid"  style={{fontSize:'2em'}}/>
 
             </button>
           </div>
