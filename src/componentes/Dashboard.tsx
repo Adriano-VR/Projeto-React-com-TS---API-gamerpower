@@ -34,7 +34,7 @@ const handleAccount  = () => {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        style={{color: "white", fontFamily: "poppins"}}
+        style={{color: "#0a0e5c", fontFamily: "poppins"}}
       >
         Menu
       </Button>
@@ -47,9 +47,9 @@ const handleAccount  = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleProfile}>Profile</MenuItem>
-        <MenuItem onClick={handleAccount}>My account</MenuItem>
-        <MenuItem onClick={handleCloseUser}>Logout</MenuItem>
+        <MenuItem onClick={handleProfile} style={{fontFamily: "poppins"}}>Profile</MenuItem>
+        <MenuItem onClick={handleAccount} style={{fontFamily: "poppins"}}>My account</MenuItem>
+        <MenuItem onClick={handleCloseUser} style={{fontFamily: "poppins"}}>Logout</MenuItem>
       </Menu>
     </div>
   );

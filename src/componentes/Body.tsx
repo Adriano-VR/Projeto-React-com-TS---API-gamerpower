@@ -114,12 +114,12 @@ export const Body = () => {
               onChange={handleChange}
               name="HeadlineAct"
               id="HeadlineAct"
-              className="bg-transparent h-9 mt-1.5 w-full rounded-lg border-zinc-500 text-zinc-500 sm:text-sm"
+              className="bg-transparent h-9 mt-1.5 w-full rounded-md border-blue-950/30 text-blue-100 sm:text-sm"
             >
-              <option value="default">Please select</option>
-              <option value="date">Data</option>
-              <option value="popularity">Popular</option>
-              <option value="value">Valor</option>
+              <option className="text-blue-950" value="default">Please select</option>
+              <option className="text-blue-950"  value="date">Data</option>
+              <option className="text-blue-950"  value="popularity">Popular</option>
+              <option className="text-blue-950"  value="value">Valor</option>
             </select>
         </div>
       </div>
@@ -145,25 +145,25 @@ export const Body = () => {
           .map((game) => (
             <div
               onClick={() => teste(game)}
-              className="h-full w-56 bg-zinc-700 rounded-md text-center shadow-md cursor-pointer hover:scale-105  duration-300 overflow-hidden whitespace-nowrap"
+              className="h-full w-56 bg-blue-500/15  rounded-md text-center  cursor-pointer hover:scale-105 hover:shadow-sm hover:shadow-blue-400  duration-300 overflow-hidden whitespace-nowrap"
               key={game.id}
             >
                
-              <img className="w-full h-28" src={game.thumbnail} alt="" />
+              <img className="w-full h-28" src={game.thumbnail} alt="thumb" />
               <TitulosH1>{game.title}</TitulosH1>
-              <p className=" px-6 truncate font-semibold">{game.platforms}</p>
+              <p className=" px-6 truncate font-semibold text-blue-50">{game.platforms}</p>
               <div className="flex items-center justify-center gap-3 my-5">
-                <strong className="border border-green-800 p-0.5 text-sm rounded bg-green-800 tracking-widest">
+                <strong className="border border-green-800 p-0.5 text-sm rounded bg-green-800 text-blue-100 tracking-widest">
                   FREE
                 </strong>
               
                 
-                <p className="line-through font-medium">{game.worth}</p>
+                <p className="line-through font-medium text-blue-50">{game.worth}</p>
               </div>
              
               <div className="flex justify-center items-center gap-1 pb-3">
                 <Clock className="text-red-600 size-5" />
-                <p className="capitalize text-sm font-bold ">
+                <p className="capitalize text-sm font-bold text-blue-50 ">
                   {dayjs().from(dayjs(game.end_date), true)}
                 </p>
               </div>

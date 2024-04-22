@@ -27,6 +27,7 @@ export function remover(game: GamesProps, setAddRemover?: Function) {
         if (snapshot.exists()) {
           const usuario = snapshot.val();
           const favoritos = usuario.favoritos || [];
+          
           const index = favoritos.indexOf(game.id);
           if (index !== -1) {
             favoritos.splice(index, 1); // Remove o jogo dos favoritos

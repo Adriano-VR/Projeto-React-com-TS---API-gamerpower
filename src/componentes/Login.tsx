@@ -106,9 +106,9 @@ export const Login = () => {
     <ToastContainer />
   
      
-      <div className="flex flex-col  h-screen justify-center">
+      <div className="flex flex-col  h-screen justify-center  items-center">
        
-        <div className="shadow-md p-5 flex flex-col gap-5 cursor-pointer ">
+        <div className="shadow-inner p-5 flex flex-col gap-5 cursor-pointer border-b-4 border-blue-950/80 rounded  w-3/5 ">
         <div className="grid grid-cols-4">
             <div>
             <SquareArrowLeft
@@ -129,24 +129,24 @@ export const Login = () => {
 
           <label
             htmlFor="Username"
-            className="relative block rounded-md  border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+            className="relative block rounded-md  border border-gray-200 shadow-sm focus-within:border-blue-200 focus-within:ring-1 focus-within:ring-blue-200 "
           >
             <input
               onChange={handleUsernameChange}
               type="text"
               id="Username"
-              className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0  h-12"
+              className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0   h-12"
               placeholder="Username"
             />
 
-            <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs text-zinc-100 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+            <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs  text-blue-100 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
               Username
             </span>
           </label>
 
           <label
             htmlFor="Password"
-            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-200 focus-within:ring-1 focus-within:ring-blue-200 "
           >
             <input
               onChange={handlePasswordChange}
@@ -156,7 +156,7 @@ export const Login = () => {
               placeholder="Password"
             />
 
-            <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs text-zinc-100 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+            <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs text-blue-100 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
               Password
             </span>
           </label>
@@ -164,14 +164,14 @@ export const Login = () => {
             className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring "
             onClick={fazerLogin}
           >
-            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500"></span>
+            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500 "></span>
 
-            <span className="relative text-lg font-medium text-indigo-600 transition-colors group-hover:text-white ">
+            <span className="relative text-lg font-medium text-blue-100 transition-colors group-hover:text-white ">
               Login
             </span>
           </button>
           <span
-            className="underline text-center"
+            className="underline text-center "
             onClick={() => navigate("/create")}
           >
             Criar Conta

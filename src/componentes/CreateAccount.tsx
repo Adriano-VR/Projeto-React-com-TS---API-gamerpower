@@ -13,6 +13,7 @@ import Paper from "@mui/material/Paper";
 import {  database } from "../db/db";
 import { push, ref, set } from "firebase/database";
 import { Flip, ToastContainer, toast } from "react-toastify";
+import { Icon } from '@iconify-icon/react';
 
 
 const steps = [
@@ -22,7 +23,7 @@ const steps = [
   },
   {
     label: "Password",
-    inputType: "text", 
+    inputType: "password", 
   }
  
 ];
@@ -122,7 +123,7 @@ export default function VerticalLinearStepper() {
 
 
     <div className=" flex items-center justify-center h-screen ">
-      <div className=" shadow-md p-5 ">
+      <div className=" shadow-md p-5 border-b-4  border-blue-950/80">
     
 
         <div className="mb-5 grid grid-cols-4 items-center">
@@ -146,15 +147,15 @@ export default function VerticalLinearStepper() {
           <Step key={step.label}
           sx={{
             "& .MuiStepLabel-root .Mui-completed": {
-                color: " rgb(34 197 94)",
+                color: "#fff",
                 fontFamily: "poppins"
             },
             "& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel": {
-                color: "blue",
+                color: "#101a9f",
                 fontFamily: "poppins"
             },
             "& .MuiStepLabel-root .Mui-active": {
-                color: " rgb(212 212 216)",
+                color: "#fff",
                 fontFamily: "poppins"
             },
             "& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel": {
@@ -162,9 +163,10 @@ export default function VerticalLinearStepper() {
                 fontFamily: "poppins"
             },
             "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text": {
-                fill: "#0e64ab",
+                fill: "blue",
                 fontFamily: "poppins"
             },
+            
             
         }}
           >
@@ -177,7 +179,7 @@ export default function VerticalLinearStepper() {
           
                 <label
                 htmlFor="Username"
-                className="relative  block rounded-md  border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                className="relative  block rounded-md  border border-gray-200 shadow-sm focus-within:border-blue-100 focus-within:ring-1 focus-within:ring-blue-100"
                 >
                 <input
                  onChange={(e) => handleInputChange(step.label , e)}
@@ -187,7 +189,7 @@ export default function VerticalLinearStepper() {
                   placeholder={step.label}
                 />
         
-                <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs text-zinc-100 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs text-blue-00 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                   {step.label}
                 </span>
               </label>
@@ -222,11 +224,14 @@ export default function VerticalLinearStepper() {
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} sx={{ p: 2,backgroundColor:'transparent' , marginTop:3   }}>
-              <Button onClick={add}sx={{ mt: 1, mr: 1,color:'white',fontFamily:'poppins' }}>
-            Confirmar
-          </Button>
-          <Button onClick={handleReset} sx={{ mt: 1, mr: 1,color:'white',fontFamily:'poppins' }}>
+              
+          <Button onClick={handleReset} sx={{ mt: 1, mr: 1,color:'#fff',fontFamily:'poppins' }}>
+          <Icon icon="mdi:remove-box-outline" style={{fontSize:20}}/>
             Resetar
+          </Button>
+          <Button onClick={add}sx={{ mt: 1, mr: 1,color:'#fff',fontFamily:'poppins' }}>
+          <Icon icon="line-md:square-to-confirm-square-transition" style={{fontSize:20}} />
+            Confirmar
           </Button>
       
         </Paper>

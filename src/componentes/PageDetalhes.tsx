@@ -53,7 +53,7 @@ export const PageDetalhes = () => {
                 if (snapshot.exists()) {
                   const usuario = snapshot.val();
                   const favoritos = usuario.favoritos || [];
-                  setAddRemover(favoritos.includes(adr.id)); // Define o estado de fifa com base na existência do jogo nos favoritos
+                  setAddRemover(favoritos.includes(adr.id)); 
                 } else {
                   console.log('Usuário não encontrado no banco de dados.');
                 }
@@ -78,12 +78,12 @@ export const PageDetalhes = () => {
           <ToastContainer />
       <div className=' flex flex-col items-center justify-center h-screen'>
         <div className='flex flex-col w-10/12 '>
-          <SquareArrowLeft   onClick={() => {
-            document.title = 'GAMES'
-            navigate("/")}} className=' mb-2 cursor-pointer size-10' />
+       
 
-            <div className='  border border-zinc-900 shadow-lg shadow-zinc-900  '>
-            
+            <div className=' relative shadow-lg shadow-monochrome-borda rounded-lg'>
+            <SquareArrowLeft   onClick={() => {
+            document.title = 'GAMES'
+            navigate("/")}} className='absolute top-3 left-3 mb-2 cursor-pointer size-10' />
             <div className='flex flex-col '>
             <img src={adr.image} alt="" className=' h-96 w-full' />
         
@@ -96,8 +96,8 @@ export const PageDetalhes = () => {
              
              
               <p className='font-medium text-md p-5 tracking-wide'>{adr.instructions}</p>  
-              <Button variant="contained" color='info' disableElevation>
-              <a className='p-2 text-base text-zinc-900  text-center font-poppins tracking-widest ' target='_blank' href={adr.open_giveaway}>Acessar</a>
+              <Button variant="contained" disableElevation >
+              <a className='p-2 text-base   text-center font-poppins tracking-widest' target='_blank' href={adr.open_giveaway}>Acessar</a>
            
               </Button>
               {loggedInUser ? (
@@ -105,7 +105,7 @@ export const PageDetalhes = () => {
                 {AddRemover ?
                 
                 // <button onClick={remover}>remover</button>
-                  <button  onClick={() => remover(adr,false,setAddRemover)} className='p-2 text-base text-red-500  text-center font-poppins tracking-widest flex items-center gap-2 '>
+                  <button  onClick={() => remover(adr,setAddRemover)} className='p-2 text-base text-red-500  text-center font-poppins tracking-widest flex items-center gap-2 '>
                   <Icon icon="gg:remove-r"   style={{fontSize:'20px'}}  />
                     <span>Remover</span> 
                   </button>

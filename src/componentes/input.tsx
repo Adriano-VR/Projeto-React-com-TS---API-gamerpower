@@ -14,7 +14,7 @@ export const Input = () => {
         type="text"
         id="Search"
         placeholder="Search for..."
-        className="placeholder:italic placeholder:text-zinc-50 h-full w-full rounded-md py-2.5 pe-10 bg-transparent text-zinc-50 shadow-sm sm:text-sm outline-none"
+        className="placeholder:italic placeholder:text-blue-950 h-full w-full rounded-md py-2.5 pe-10 bg-transparent text-blue-800 shadow-sm sm:text-sm outline-none"
       />
     </div>
   );
