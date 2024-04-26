@@ -122,7 +122,7 @@ export const FavoriteGames = () => {
               <div
                 onMouseOver={() => setHoveredDivId(game.id)}
                 onMouseLeave={() => setHoveredDivId(null)}
-                className="relative h-auto w-56 bg-blue-950/15 place-self-start justify-self-start border-b-4 border-blue-800/70 rounded-md text-center shadow-md cursor-pointer hover:scale-105 duration-300 overflow-hidden whitespace-nowrap"
+                className="relative h-auto w-56 bg-black/40 place-self-start justify-self-start  rounded-md text-center shadow-md cursor-pointer hover:scale-105 duration-300 overflow-hidden whitespace-nowrap"
                 key={game.id}
               >
                 {hoveredDivId === game.id && (

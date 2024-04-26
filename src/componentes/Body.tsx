@@ -145,7 +145,7 @@ export const Body = () => {
           .map((game) => (
             <div
               onClick={() => teste(game)}
-              className="h-full w-56 bg-blue-500/15  rounded-md text-center  cursor-pointer hover:scale-105 hover:shadow-sm hover:shadow-blue-400  duration-300 overflow-hidden whitespace-nowrap"
+              className="h-full w-56 bg-black/40 rounded-md text-center  cursor-pointer hover:scale-105  duration-300 overflow-hidden whitespace-nowrap"
               key={game.id}
             >
                

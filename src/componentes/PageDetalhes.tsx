@@ -76,11 +76,11 @@ export const PageDetalhes = () => {
     return (
       <>
           <ToastContainer />
-      <div className=' flex flex-col items-center justify-center h-screen'>
+      <div className=' flex flex-col items-center justify-center h-screen '>
         <div className='flex flex-col w-10/12 '>
        
 
-            <div className=' relative shadow-lg shadow-monochrome-borda rounded-lg'>
+            <div className=' relative shadow-lg shadow-monochrome-borda rounded-lg overflow-hidden'>
             <SquareArrowLeft   onClick={() => {
             document.title = 'GAMES'
             navigate("/")}} className='absolute top-3 left-3 mb-2 cursor-pointer size-10' />
