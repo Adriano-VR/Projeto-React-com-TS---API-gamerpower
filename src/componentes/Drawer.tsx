@@ -108,7 +108,7 @@ export default function TemporaryDrawer() {
       <Box
         sx={{
           width: 300,
-          backgroundColor: "#fff",
+          backgroundColor: "rgb(0 0 0 / 0.8)",
           flex: 1,
           height: "100%",
         }}
@@ -116,7 +116,7 @@ export default function TemporaryDrawer() {
       >
         <Input />
         <Divider />
-        <List className="text-blue-950">
+        <List className="text-zinc-50">
           {[
             "ALL",
             "Free Games",
@@ -141,7 +141,7 @@ export default function TemporaryDrawer() {
             <Divider />
 
             {loggedInUser && (
-                <List className="text-blue-950">
+                <List className="text-zinc-50">
                   <ListItem disablePadding>
                     <ListItemButton  onClick={() => navigate("/favoritos")}>
                     <ListItemIcon><Icon icon="mingcute:star-fill" style={{ fontSize: '30px',color:"gold" }} /></ListItemIcon>
@@ -172,13 +172,12 @@ export default function TemporaryDrawer() {
 
         {loggedInUser ? (
             <>
-           <Divider />   
-          <div className="flex items-center bg-white text-blue-900 p-2">
+          <div className="flex items-center bg-black/80 text-zinc-50 p-2">
             <Avatar sx={{ bgcolor: deepOrange[500], height: 60, width: 60 }}>
               {loggedInUser.name.charAt(0).toUpperCase()}
             </Avatar>
             <div className="flex flex-col items-center justify-center w-full">
-              <p className="capitalize  text-blue-900">Ola, {loggedInUser?.name + " !"}</p>
+              <p className="capitalize  text-zinc-50">Ola, {loggedInUser?.name + " !"}</p>
 
 
               <BasicMenu />
@@ -188,8 +187,8 @@ export default function TemporaryDrawer() {
         ) : (
           
 
-          <div className=" bg-blue-50 text-blue-950 cursor-pointer"  >
-            <button className="flex items-center justify-between w-full h-10 mb-5 px-5  " onClick={() => navigate("/login")}>
+          <div className="flex items-center justify-center bg-zinc-600 cursor-pointer"  >
+            <button className="flex items-center text-zinc-50  justify-center gap-3 w-full h-12 " onClick={() => navigate("/login")}>
                <span className="tracking-widest font-poppins text-lg uppercase font-semibold">Login</span> 
                <Icon icon="basil:login-solid"  style={{fontSize:'2em'}}/>
 

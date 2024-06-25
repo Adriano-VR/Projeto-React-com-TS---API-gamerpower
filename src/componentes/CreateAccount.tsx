@@ -123,7 +123,7 @@ export default function VerticalLinearStepper() {
 
 
     <div className=" flex items-center justify-center h-screen ">
-      <div className=" shadow-md p-5 border-b-4  border-blue-950/80">
+      <div className="p-5 shadow-inner py-10 rounded   bg-black/40">
     
 
         <div className="mb-5 grid grid-cols-4 items-center">

@@ -96,9 +96,10 @@ export const PageDetalhes = () => {
              
              
               <p className='font-medium text-md p-5 tracking-wide'>{adr.instructions}</p>  
-              <Button variant="contained" disableElevation >
-              <a className='p-2 text-base   text-center font-poppins tracking-widest' target='_blank' href={adr.open_giveaway}>Acessar</a>
-           
+             
+              <Button variant="outlined"   disableElevation>
+              <a className='p-2 text-base text-zinc-100 font-semibold  text-center font-poppins tracking-widest ' target='_blank' href={adr.open_giveaway}>Acessar</a>
+              
               </Button>
               {loggedInUser ? (
               <div className="mt-5 flex items-center justify-center" >
@@ -120,7 +121,9 @@ export const PageDetalhes = () => {
               //  <button className='bg-green-400' onClick={() => handleFavorite(adr)}>Add Favoritos</button>  
               }
               </div>
-            ) : <span>Entre para adicionar aos favoritos</span>}             
+            ) : 
+              
+              <span className='py-5 text-center font-semibold italic'>Entre para adicionar aos favoritos</span>}             
             
               <p className='font-medium text-md p-5'>Publicacao: {dayjs().to(dayjs(adr.published_date))}</p>  
 

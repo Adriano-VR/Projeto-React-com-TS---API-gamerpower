@@ -34,7 +34,7 @@ const handleAccount  = () => {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        style={{color: "#0a0e5c", fontFamily: "poppins"}}
+        style={{color: "white", fontFamily: "poppins"}}
       >
         Menu
       </Button>

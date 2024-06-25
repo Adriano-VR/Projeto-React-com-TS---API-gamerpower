@@ -108,7 +108,7 @@ export const Login = () => {
      
       <div className="flex flex-col  h-screen justify-center  items-center">
        
-        <div className="shadow-inner p-5 flex flex-col gap-5 cursor-pointer border-b-4 border-blue-950/80 rounded  w-3/5 ">
+        <div className="shadow-inner p-5 flex flex-col gap-10  justify-center  py-12 rounded bg-black/40  w-3/5 ">
         <div className="grid grid-cols-4">
             <div>
             <SquareArrowLeft
@@ -116,11 +116,11 @@ export const Login = () => {
                 navigate("/");
               }}
               size={40}
-              
+                className="cursor-pointer"
             /> 
             </div>
-            <div className="col-span-2 justify-self-center ">
-            <p className="text-3xl ">LOGIN</p>
+            <div className="col-span-2  justify-self-center ">
+            <p className="text-2xl ">LOGIN</p>
             </div>
        
           </div>
@@ -161,17 +161,17 @@ export const Login = () => {
             </span>
           </label>
           <button
-            className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring "
+            className="group relative inline-block overflow-hidden shadow-inner bg-black/40 px-8 py-3 focus:outline-none focus:ring "
             onClick={fazerLogin}
           >
-            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500 "></span>
+            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-black/40 transition-all group-hover:h-full group-active:bg-indigo-500 "></span>
 
             <span className="relative text-lg font-medium text-blue-100 transition-colors group-hover:text-white ">
               Login
             </span>
           </button>
           <span
-            className="underline text-center "
+            className="underline text-center cursor-pointer "
             onClick={() => navigate("/create")}
           >
             Criar Conta
