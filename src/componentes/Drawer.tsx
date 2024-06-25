@@ -24,7 +24,11 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import BasicMenu from "./Dashboard";
-import LoginIcon from '@mui/icons-material/Login';
+import { Icon } from '@iconify-icon/react';
+
+
+
+
 export default function TemporaryDrawer() {
   
   const [open, setOpen] = React.useState(false);
@@ -48,14 +52,12 @@ export default function TemporaryDrawer() {
   }, []);
 
 
-
-
-
   const toggleDrawer = (newOpen: boolean) => () => {
       setOpen(newOpen);
   };
 
   const handleItemClick = (text: string) => {
+    if(text === 'all') navigate("/");
     setOpen(false);
     setSelectedCategory(text);
   };
@@ -106,7 +108,7 @@ export default function TemporaryDrawer() {
       <Box
         sx={{
           width: 300,
-          backgroundColor: "rgb(63 63 70 )",
+          backgroundColor: "rgb(0 0 0 / 0.8)",
           flex: 1,
           height: "100%",
         }}
@@ -114,7 +116,7 @@ export default function TemporaryDrawer() {
       >
         <Input />
         <Divider />
-        <List className="text-white">
+        <List className="text-zinc-50">
           {[
             "ALL",
             "Free Games",
@@ -136,10 +138,27 @@ export default function TemporaryDrawer() {
             </ListItem>
           ))}
         </List>
-        <Divider />
+            <Divider />
+
+            {loggedInUser && (
+                <List className="text-zinc-50">
+                  <ListItem disablePadding>
+                    <ListItemButton  onClick={() => navigate("/favoritos")}>
+                    <ListItemIcon><Icon icon="mingcute:star-fill" style={{ fontSize: '30px',color:"gold" }} /></ListItemIcon>
+                    <ListItemText primary={'Meus Favoritos'} />
+                    </ListItemButton>
+                  </ListItem>
+                </List>
+            )}
+
+    
       </Box>
     </ThemeProvider>
   );
+
+  <span className="cursor-pointer bg-green-500 text-zinc-100 items-center justify-center flex" onClick={() => navigate("/favoritos")}>
+ 
+  </span>
 
   return (
     <div className="w-full ">
@@ -152,27 +171,27 @@ export default function TemporaryDrawer() {
         {DrawerList}
 
         {loggedInUser ? (
-          <div className="flex items-center bg-[#27272A] text-zinc-100 p-2">
+            <>
+          <div className="flex items-center bg-black/80 text-zinc-50 p-2">
             <Avatar sx={{ bgcolor: deepOrange[500], height: 60, width: 60 }}>
               {loggedInUser.name.charAt(0).toUpperCase()}
             </Avatar>
             <div className="flex flex-col items-center justify-center w-full">
-              <p className="capitalize">Ola, {loggedInUser?.name + " !"}</p>
+              <p className="capitalize  text-zinc-50">Ola, {loggedInUser?.name + " !"}</p>
+
+
               <BasicMenu />
             </div>
           </div>
+          </>
         ) : (
           
 
-          <div className="flex items-center justify-center bg-zinc-700 text-zinc-100 cursor-pointer">
-            <button
-              className="text-lg flex items-center gap-2 p-3 mb-5  bg-zinc-900 rounded-lg shadow-md "
-              onClick={() => navigate("/login")}
-            >
-                Login
-              <LoginIcon fontSize="large" titleAccess="Login"  />
+          <div className="flex items-center justify-center bg-zinc-600 cursor-pointer"  >
+            <button className="flex items-center text-zinc-50  justify-center gap-3 w-full h-12 " onClick={() => navigate("/login")}>
+               <span className="tracking-widest font-poppins text-lg uppercase font-semibold">Login</span> 
+               <Icon icon="basil:login-solid"  style={{fontSize:'2em'}}/>
 
-          
             </button>
           </div>
         )}

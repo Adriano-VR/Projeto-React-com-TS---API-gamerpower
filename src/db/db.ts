@@ -1,65 +1,19 @@
-    import { addRxPlugin, createRxDatabase } from 'rxdb';
-    import { RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
-    import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
-import { gerarNumeroAleatorio } from '../utils/gerarNumeroAleatorio';
+import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 
 
-    addRxPlugin(RxDBDevModePlugin);
 
-    export const  createDatabase = async () => {
-        const dbjogos = await createRxDatabase({
-            name: 'dbjogos',
-            storage: getRxStorageDexie(),
-            ignoreDuplicate: true,
-            
-        });
-
-
-        const tableParams = {
-            version: 0,
-            primaryKey: 'id',
-            type: 'object',
-            properties: {
-                id: {
-                    type: 'string',
-                    maxLength: 1000,
-                },
-                name: {
-                    type: 'string'
-                },
-                password: {
-                    type: 'string'
-                },
-                isFavorite: {
-                    type: 'boolean',
-                    default: false
-                }
-            },
-            required: ['id','name', 'password','isFavorite']
-        };
-
-        await dbjogos.addCollections({
-            games: {
-                schema: tableParams
-            }
-        });
-
-        // await dbjogos.games.remove();
-
-    
-
-        const id = gerarNumeroAleatorio(0,5000)
-
-        await dbjogos.games.insert({id , name:'admin' ,password:'admin',isFavorite:false});
-        
-        const games = await dbjogos.games.find().exec();
-        games.forEach(games => {
-            console.log('ID:', games.id, 'Nome:', games.name, 'Senha:', games.password , 'favorite' , games.isFavorite);
-        });
-
-        return dbjogos; 
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyBemGlQAmx39gllMhAVlbmuzcvSblwoFOI",
+  authDomain: "free-games-dfdea.firebaseapp.com",
+  projectId: "free-games-dfdea",
+  storageBucket: "free-games-dfdea.appspot.com",
+  messagingSenderId: "252283374942",
+  appId: "1:252283374942:web:94ab82b738dac7806f53cf"
+};
 
 
+const app = initializeApp(firebaseConfig);
+export const database = getDatabase(app);
 
 

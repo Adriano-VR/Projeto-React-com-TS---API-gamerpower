@@ -10,10 +10,10 @@ export const TitulosH1 = ({detalhes,...props}: Props) => {
     
 return(
         <h1 {...props} 
-        className= {twMerge(" dark:text-zinc-200 py-3  tracking-wider font-poppins" ,
+        className= {twMerge(" dark:text-blue-50 py-3  tracking-wider font-poppins" ,
             
             detalhes ? 
-            "flex items-center justify-center text-2xl" :
+            "flex items-center justify-center text-2xl dark:text-blue-100" :
             "truncate px-2 text-center text-lg ")}/>
     )
 }    

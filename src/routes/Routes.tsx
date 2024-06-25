@@ -4,7 +4,8 @@ import { PageDetalhes } from "../componentes/PageDetalhes";
 import { CategoryContextProvider } from "../context/contextCategory";
 import { Login } from "../componentes/Login";
 import CreateAccount, {  } from "../componentes/CreateAccount";
-import { Favoritos } from "../componentes/Favoritos";
+import { FavoriteGames } from "../componentes/FavoritesGames";
+import { AddRemoverProviderProps } from "../context/AddRemover";
 
 
 
@@ -29,15 +30,17 @@ export const Routes = ()   => {
             },
             {
               path: "/favoritos",
-              element: <Favoritos />,
+              element: <FavoriteGames />,
             }
         
       ]);
 
       return(
+        <AddRemoverProviderProps>
         <CategoryContextProvider>
         <RouterProvider router={router} />
         </CategoryContextProvider>
+        </AddRemoverProviderProps>
 
       )
 

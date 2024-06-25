@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { createDatabase } from "../db/db";
+import { database } from "../db/db";
 import { useNavigate } from "react-router-dom";
 import { CategoryContext } from "../context/contextCategory";
 import { UserLogged } from "../interface/interfaceGame";
 import { SquareArrowLeft } from "lucide-react";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { get, ref } from "firebase/database";
 
 
 export const Login = () => {
@@ -28,64 +29,63 @@ export const Login = () => {
   };
 
   const fazerLogin = async () => {
-
-    
     try {
-
-      
-      const db = await createDatabase();
+      const usuariosRef = ref(database, 'usuarios');
+      const snapshot = await get(usuariosRef);
+      if (snapshot.exists()) {
+          
   
-      const user = await db.games
-        .findOne({ selector: { name: username } })
-        .exec();
-
-      if (!user) {
-        toast.error("Usuario Nao Encontrado", {
-          position: "top-center",
-          autoClose: 2400,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          theme: "dark",
-          transition: Flip,
-        });
+        const usuarios:UserLogged = snapshot.val();
+       
+       
+        const usuario = Object.values(usuarios).find(user => user.username === username);
+        if (usuario && usuario.senha === password) {
         
-        return;
-      }
+        
+          const loggedUser: UserLogged = {
+            id: usuario.id,
+            name: usuario.username,
+  
+          };
 
-      if (user.password === password) {
-        console.log("Login bem-sucedido");
-
-        const loggedUser: UserLogged = {
-          name: user.name,
-          image: user.image,
-        };
-
-        toast.success("Login Bem Sucedido", {
-          position: "top-center",
-          autoClose: 2400,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          theme: "dark",
-          transition: Flip,
-        });
        
-        UserLogged(loggedUser);
-        localStorage.setItem("user", JSON.stringify(loggedUser));
+          UserLogged(loggedUser);
+          localStorage.setItem("user", JSON.stringify(loggedUser));
+         
+          toast.success("Login Bem Sucedido", {
+            position: "top-center",
+            autoClose: 2400,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "dark",
+            transition: Flip,
+          });
 
-        setTimeout(() => {
-          navigate("/");
-        }, 2500);
+
+          setTimeout(() => {
+            navigate("/");
+          }, 2500);
+
+        } else {
+          toast.error("Nome de usuário ou senha incorretos.", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "dark",
+            transition: Flip,
+          });
+        }
       } else {
-     
-        toast.error("Dados Errados", {
+        toast.error("Nenhum usuário encontrado no banco de dados.", {
           position: "top-center",
-          autoClose: 2400,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -94,22 +94,11 @@ export const Login = () => {
           theme: "dark",
           transition: Flip,
         });
-       
       }
     } catch (error) {
-      toast.error("Erro", {
-        position: "top-center",
-        autoClose: 2400,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        theme: "dark",
-        transition: Flip,
-      });
-      throw error;
+      console.error('Erro ao fazer login:', error);
     }
+   
   };
 
   return (
@@ -117,9 +106,9 @@ export const Login = () => {
     <ToastContainer />
   
      
-      <div className="flex flex-col  h-screen justify-center">
+      <div className="flex flex-col  h-screen justify-center  items-center">
        
-        <div className="shadow-md p-5 flex flex-col gap-5 cursor-pointer ">
+        <div className="shadow-inner p-5 flex flex-col gap-10  justify-center  py-12 rounded bg-black/40  w-3/5 ">
         <div className="grid grid-cols-4">
             <div>
             <SquareArrowLeft
@@ -127,11 +116,11 @@ export const Login = () => {
                 navigate("/");
               }}
               size={40}
-              
+                className="cursor-pointer"
             /> 
             </div>
-            <div className="col-span-2 justify-self-center ">
-            <p className="text-3xl ">LOGIN</p>
+            <div className="col-span-2  justify-self-center ">
+            <p className="text-2xl ">LOGIN</p>
             </div>
        
           </div>
@@ -140,24 +129,24 @@ export const Login = () => {
 
           <label
             htmlFor="Username"
-            className="relative block rounded-md  border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+            className="relative block rounded-md  border border-gray-200 shadow-sm focus-within:border-blue-200 focus-within:ring-1 focus-within:ring-blue-200 "
           >
             <input
               onChange={handleUsernameChange}
               type="text"
               id="Username"
-              className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0  h-12"
+              className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0   h-12"
               placeholder="Username"
             />
 
-            <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs text-zinc-100 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+            <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs  text-blue-100 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
               Username
             </span>
           </label>
 
           <label
             htmlFor="Password"
-            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-blue-200 focus-within:ring-1 focus-within:ring-blue-200 "
           >
             <input
               onChange={handlePasswordChange}
@@ -167,22 +156,22 @@ export const Login = () => {
               placeholder="Password"
             />
 
-            <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs text-zinc-100 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+            <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-transparent p-0.5 text-xs text-blue-100 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
               Password
             </span>
           </label>
           <button
-            className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring "
+            className="group relative inline-block overflow-hidden shadow-inner bg-black/40 px-8 py-3 focus:outline-none focus:ring "
             onClick={fazerLogin}
           >
-            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500"></span>
+            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-black/40 transition-all group-hover:h-full group-active:bg-indigo-500 "></span>
 
-            <span className="relative text-lg font-medium text-indigo-600 transition-colors group-hover:text-white ">
+            <span className="relative text-lg font-medium text-blue-100 transition-colors group-hover:text-white ">
               Login
             </span>
           </button>
           <span
-            className="underline text-center"
+            className="underline text-center cursor-pointer "
             onClick={() => navigate("/create")}
           >
             Criar Conta

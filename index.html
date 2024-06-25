@@ -7,9 +7,12 @@
     <title>GAMES</title>
   </head>
   <style>
-
+    .gradient {
+      background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+ background-blend-mode: multiply;
+    }
   </style>
-  <body class="bg-zinc-800 text-zinc-200  antialiased font-mont">
+  <body class="gradient text-blue-50  antialiased font-mont">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
