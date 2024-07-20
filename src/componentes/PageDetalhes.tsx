@@ -16,6 +16,7 @@ import {  ToastContainer } from 'react-toastify';
 import { Icon } from '@iconify-icon/react/dist/iconify.mjs';
 import { handleFavorite, remover } from '../utils/Funcoes';
 import { AddRemoverContext } from '../context/AddRemover';
+import {Link} from "lucide-react";
 
 
 dayjs.extend(relativeTime);
@@ -80,7 +81,7 @@ export const PageDetalhes = () => {
         <div className='flex flex-col w-10/12 '>
        
 
-            <div className=' relative shadow-lg shadow-monochrome-borda rounded-lg overflow-hidden'>
+            <div className=' relative border rounded-lg overflow-hidden'>
             <SquareArrowLeft   onClick={() => {
             document.title = 'GAMES'
             navigate("/")}} className='absolute top-3 left-3 mb-2 cursor-pointer size-10' />
@@ -96,11 +97,16 @@ export const PageDetalhes = () => {
              
              
               <p className='font-medium text-md p-5 tracking-wide'>{adr.instructions}</p>  
-             
-              <Button variant="outlined"   disableElevation>
-              <a className='p-2 text-base text-zinc-100 font-semibold  text-center font-poppins tracking-widest ' target='_blank' href={adr.open_giveaway}>Acessar</a>
+                <div className='px-4 flex items-center'>
+              <Button variant="outlined" className='w-full'   disableElevation>
+                <div className='flex items-center justify-center p-2 gap-2  text-zinc-100 font-semibold  font-poppins'>
+                <a className=' text-lg tracking-widest  ' target='_blank'  href={adr.open_giveaway}>Get Giveaway</a>
+                <Link className='size-5' />
+                </div>
               
               </Button>
+              </div>
+           
               {loggedInUser ? (
               <div className="mt-5 flex items-center justify-center" >
                 {AddRemover ?
@@ -108,14 +114,14 @@ export const PageDetalhes = () => {
                 // <button onClick={remover}>remover</button>
                   <button  onClick={() => remover(adr,setAddRemover)} className='p-2 text-base text-red-500  text-center font-poppins tracking-widest flex items-center gap-2 '>
                   <Icon icon="gg:remove-r"   style={{fontSize:'20px'}}  />
-                    <span>Remover</span> 
+                    <span>Remove</span> 
                   </button>
 
                 : 
                 <button onClick={() => handleFavorite(adr,setAddRemover)} className='p-2 text-base text-green-600  text-center font-poppins tracking-widest flex items-center gap-2'>
-                <Icon icon="icon-park-outline:add"  style={{fontSize:'20px'}}  />
+                <Icon icon="icon-park-outline:add"  style={{fontSize:'20px'}}  /> 
                 
-                   <span>Favoritar</span>
+                   <span>Favorite</span>
                   </button>
 
               //  <button className='bg-green-400' onClick={() => handleFavorite(adr)}>Add Favoritos</button>  
@@ -123,7 +129,7 @@ export const PageDetalhes = () => {
               </div>
             ) : 
               
-              <span className='py-5 text-center font-semibold italic'>Entre para adicionar aos favoritos</span>}             
+              <span className='py-5 text-center font-semibold italic'>Sign in to add to favorites</span>}             
             
               <p className='font-medium text-md p-5'>Publicacao: {dayjs().to(dayjs(adr.published_date))}</p>  
 
