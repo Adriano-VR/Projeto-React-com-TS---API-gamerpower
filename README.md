@@ -1,56 +1,28 @@
-# Projeto React 
+# React-FreeGames
 
-Ele  faz uso de APIs do Tailwind CSS, Firebase para autenticação, cadastro de usuário e salvamento de jogos favoritos do usuário logado, além de ter funcionalidades de filtros e pesquisa.
+## Descrição
 
-https://projeto-react-com-ts-api-gamerpower-2dtolv02i.vercel.app/
-
-## Requisitos do Sistema
-
-Certifique-se de ter as seguintes tecnologias instaladas em seu sistema antes de começar:
-
-- Node.js
-- npm (ou yarn)
-- Firebase CLI (para configuração e administração do Firebase)
-
-## Configuração
-
-1. Clone este repositório para o seu sistema local.
-2. Navegue até o diretório do projeto e execute o comando `npm install` (ou `yarn install`) para instalar as dependências.
-
-## Configuração do Firebase
-
-1. Crie um novo projeto no [Firebase Console](https://console.firebase.google.com/).
-2. Copie as chaves de configuração do seu projeto Firebase e cole no arquivo `.env` do seu projeto. Exemplo:
-
-- **VITE_FIREBASE_API_KEY=YOUR_API_KEY
-- **VITE_FIREBASE_AUTH_DOMAIN=YOUR_AUTH_DOMAIN
-- **VITE_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
-- **VITE_FIREBASE_STORAGE_BUCKET=YOUR_STORAGE_BUCKET
-- **VITE_FIREBASE_MESSAGING_SENDER_ID=YOUR_MESSAGING_SENDER_ID
-- **VITE_FIREBASE_APP_ID=YOUR_APP_ID
-
-
-3. Ative a autenticação por e-mail/senha no console do Firebase.
-
-## Uso
-
-Para iniciar o servidor de desenvolvimento, execute o seguinte comando:
-
-npm run dev
-
-Isso iniciará o servidor de desenvolvimento em `http://localhost:3000`.
+Bem-vindo ao React-FreeGamesHub, o site onde você encontra jogos grátis de todas as plataformas! Nosso site oferece uma ampla variedade de jogos gratuitos, com funcionalidades de pesquisa, filtros, paginação, integração com API e uma sessão de favoritos que utiliza o Firebase para armazenamento e gerenciamento de dados.
 
 ## Funcionalidades
 
-- **Autenticação de Usuário**: Os usuários podem se cadastrar e fazer login usando o Firebase Authentication.
-- **Cadastro de Usuário**: Os usuários podem se cadastrar fornecendo um e-mail e uma senha.
-- **Salvamento de Jogos Favoritos**: Os usuários logados podem salvar seus jogos favoritos.
-- **Filtros e Pesquisa**: Funcionalidades para filtrar e pesquisar jogos.
+- **Jogos Grátis de Todas as Plataformas**: Explore jogos gratuitos disponíveis para diversas plataformas, incluindo PC, consoles e dispositivos móveis.
+- **Pesquisa**: Encontre seus jogos favoritos rapidamente utilizando a barra de pesquisa.
+- **Filtros**: Refine sua busca aplicando filtros por plataforma, gênero, popularidade, e outros critérios.
+- **Paginação**: Navegue facilmente através das listagens de jogos com a funcionalidade de paginação.
+- **Integração com API**: Nosso site se integra com uma API externa para fornecer as informações mais atualizadas sobre os jogos.
+- **Sessão de Favoritos**: Salve e gerencie seus jogos favoritos utilizando o Firebase para armazenamento seguro e sincronizado.
 
-## Contribuição
+## Tecnologias Utilizadas
 
-Contribuições são bem-vindas! Se você encontrar problemas ou tiver sugestões de novos recursos, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+- **Front-end**: React, HTML, TailWind
+- **Back-end**: Node.js, Express
+- **Banco de Dados**: Firebase
+- **Integração com API**: Utilizamos APIs de terceiros para obter informações atualizadas sobre os jogos.
+
+## Acesse o Site
+O projeto está hospedado em: https://projeto-react-com-ts-api-gamerpower-2dtolv02i.vercel.app/
 
 ## Licença
+Este projeto está licenciado sob a MIT License.
 
-Este projeto está licenciado sob a [Licença MIT](LICENSE).
