@@ -2,6 +2,8 @@
 
 Ele  faz uso de APIs do Tailwind CSS, Firebase para autenticação, cadastro de usuário e salvamento de jogos favoritos do usuário logado, além de ter funcionalidades de filtros e pesquisa.
 
+https://projeto-react-com-ts-api-gamerpower-2dtolv02i.vercel.app/
+
 ## Requisitos do Sistema
 
 Certifique-se de ter as seguintes tecnologias instaladas em seu sistema antes de começar:
